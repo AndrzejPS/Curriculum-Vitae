@@ -37,12 +37,44 @@ void write_board(std::vector<std::vector<char>> &board, const int& board_size)
 void players_turn(std::vector<std::vector<char>>& board, const int& board_size)
 {
 	int row_number, column_number;
-	std::cout << "Type the number of row (1-" << board_size << "): ";
-	std::cin >> row_number;
-	std::cout << "Type the number of column(1-" << board_size << "): ";
-	std::cin >> column_number;
+	bool move_correct, taken_field;
 
-	board[row_number-1][column_number-1] = 'X';
+	do
+	{
+		do
+		{
+			
+			std::cout << "Type the number of row (1-" << board_size << "): ";
+			std::cin >> row_number;
+			std::cout << "Type the number of column(1-" << board_size << "): ";
+			std::cin >> column_number;
+
+
+			if (row_number > 0 && row_number < board_size && column_number > 0 && column_number < board_size)
+			{
+				move_correct = true;
+			}
+			else
+			{
+				move_correct = false;
+				std::cout << "Your move is incorrect! Pls, try again.\n";
+			}
+
+
+		} while(!move_correct);
+
+		if (board[row_number - 1][column_number - 1] != '1')
+		{
+			taken_field = true;
+			std::cout << "This field is already taken! Pls, try again.\n";
+		}
+		else
+		{
+			taken_field = false;
+			board[row_number - 1][column_number - 1] = 'X';
+		}
+
+	} while (taken_field);
 	
 }
 
