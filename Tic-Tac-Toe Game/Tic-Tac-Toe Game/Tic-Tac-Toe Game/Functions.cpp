@@ -49,8 +49,7 @@ void players_turn(std::vector<std::vector<char>>& board, const int& board_size)
 			std::cout << "Type the number of column(1-" << board_size << "): ";
 			std::cin >> column_number;
 
-
-			if (row_number > 0 && row_number < board_size && column_number > 0 && column_number < board_size)
+			if (row_number > 0 && row_number <= board_size && column_number > 0 && column_number <= board_size)
 			{
 				move_correct = true;
 			}
@@ -74,7 +73,6 @@ void players_turn(std::vector<std::vector<char>>& board, const int& board_size)
 			board[row_number - 1][column_number - 1] = 'X';
 		}
 
-	} while (taken_field);
-	
+	} while (taken_field);	
 }
 
