@@ -1,6 +1,7 @@
 #include "Functions.h"
 #include <iostream>
 #include <vector>
+#include <random>
 
 std::vector<std::vector<char>> create_board(const int& board_size)
 {
@@ -11,7 +12,7 @@ std::vector<std::vector<char>> create_board(const int& board_size)
 		value.resize(board_size);
 		for (char& board_field : value)
 		{
-			board_field = '1';
+			board_field = ' ';
 		}
 	}
 	return board;
@@ -59,10 +60,9 @@ void players_turn(std::vector<std::vector<char>>& board, const int& board_size)
 				std::cout << "Your move is incorrect! Pls, try again.\n";
 			}
 
-
 		} while(!move_correct);
 
-		if (board[row_number - 1][column_number - 1] != '1')
+		if (board[row_number-1][column_number-1] != ' ')
 		{
 			taken_field = true;
 			std::cout << "This field is already taken! Pls, try again.\n";
@@ -70,9 +70,32 @@ void players_turn(std::vector<std::vector<char>>& board, const int& board_size)
 		else
 		{
 			taken_field = false;
-			board[row_number - 1][column_number - 1] = 'X';
+			board[row_number-1][column_number-1] = 'X';
 		}
 
-	} while (taken_field);	
+	} while (taken_field);
+
 }
 
+void AI_turn(std::vector<std::vector<char>>& board, const int& board_size)
+{
+	int row_number, column_number;
+
+	do
+	{
+		row_number = AI_move_generator(1, board_size);
+		column_number = AI_move_generator(1, board_size);
+
+	} while (board[row_number-1][column_number-1] != ' ');
+
+	board[row_number-1][column_number-1] = 'O';
+}
+
+int AI_move_generator(int low, int high)
+{
+	static std::default_random_engine re{ std::random_device{}() };
+
+	using Dist = std::uniform_int_distribution<int>;
+	static Dist uid{};
+	return uid(re, Dist::param_type{ low,high });
+}
