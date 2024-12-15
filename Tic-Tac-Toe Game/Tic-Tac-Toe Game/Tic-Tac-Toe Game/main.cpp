@@ -11,7 +11,10 @@ int main()
         write_board(board, board_size);
         players_turn(board, board_size);
         write_board(board, board_size);
+        if(win_condition(board, board_size)) break;
         AI_turn(board, board_size);
+        write_board(board, board_size);
+        if (win_condition(board, board_size)) break;
     }
    
 }
