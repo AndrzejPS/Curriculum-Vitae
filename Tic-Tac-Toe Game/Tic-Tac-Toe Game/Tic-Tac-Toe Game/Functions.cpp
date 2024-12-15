@@ -100,7 +100,7 @@ int AI_move_generator(int low, int high)
 	return uid(re, Dist::param_type{ low,high });
 }
 
-bool win_condition(std::vector<std::vector<char>>& board, const int& board_size)
+bool win_condition(std::vector<std::vector<char>>& board, const int& board_size, player& profile)
 {
 	int counter = 0;
 	
@@ -112,7 +112,7 @@ bool win_condition(std::vector<std::vector<char>>& board, const int& board_size)
 			if (board[i][j - 1] == board[i][j] && board[i][j] != ' ') counter++;
 			else break;
 		}
-		if (counter == 2) return true;
+		if (counter == board_size-1) profile.victory = true;
 		else counter = 0;
 	}
 
@@ -124,33 +124,26 @@ bool win_condition(std::vector<std::vector<char>>& board, const int& board_size)
 			if (board[i-1][j] == board[i][j] && board[i][j] != ' ') counter++;
 			else break;
 		}
-		if (counter == 2) return true;
+		if (counter == board_size-1) profile.victory = true;
 		else counter = 0;
 	}
 
 	//diagonally up-down
 	for (int i = 1; i < board_size; i++)
-	{
-		for (int j = 1; j < board_size; j++)
-		{
-			if (board[i-1][j - 1] == board[i][j] && board[i][j] != ' ') counter++;
-			else break;
-		}
-		if (counter == 2) return true;
-		else counter = 0;
+	{ 
+		int j = i;
+		if (board[i-1][j-1] == board[i][j] && board[i][j] != ' ') counter++;
 	}
+	if (counter == board_size - 1) return profile.victory = true;
+	else counter = 0;
 
 	//diagonally down-up
 	for (int i = board_size - 1; i > 0; i--)
 	{
-		for (int j = 1; j < board_size; j++)
-		{
-			if (board[i][j - 1] == board[i-1][j] && board[i][j] != ' ') counter++;
-			else break;
-		}
-		if (counter == 2) return true;
-		else counter = 0;
+		int j = board_size -1 - i;
+		if (board[i-1][j+1] == board[i][j] && board[i][j] != ' ') counter++;
 	}
+	if (counter == board_size - 1) return profile.victory = true;
 	
-	return false;
+	return profile.victory;
 }
