@@ -1,6 +1,6 @@
 #include "Functions.h"
 #include <iostream>
-#include <random>
+
 
 
 std::vector<std::vector<char>> create_board(const int& board_size)
@@ -112,7 +112,7 @@ bool win_conditions(std::vector<std::vector<char>>& board, const int& board_size
 			if (board[i][j - 1] == board[i][j] && board[i][j] != ' ') counter++;
 			else break;
 		}
-		if (counter == board_size-1) profile.victory = true;
+		if (counter == board_size-1)  return true;
 		else counter = 0;
 	}
 
@@ -124,7 +124,7 @@ bool win_conditions(std::vector<std::vector<char>>& board, const int& board_size
 			if (board[i-1][j] == board[i][j] && board[i][j] != ' ') counter++;
 			else break;
 		}
-		if (counter == board_size-1) profile.victory = true;
+		if (counter == board_size-1)  return true;
 		else counter = 0;
 	}
 
@@ -134,7 +134,7 @@ bool win_conditions(std::vector<std::vector<char>>& board, const int& board_size
 		int j = i;
 		if (board[i-1][j-1] == board[i][j] && board[i][j] != ' ') counter++;
 	}
-	if (counter == board_size - 1) return profile.victory = true;
+	if (counter == board_size - 1) return true;
 	else counter = 0;
 
 	//diagonally down-up
@@ -143,12 +143,12 @@ bool win_conditions(std::vector<std::vector<char>>& board, const int& board_size
 		int j = board_size -1 - i;
 		if (board[i-1][j+1] == board[i][j] && board[i][j] != ' ') counter++;
 	}
-	if (counter == board_size - 1) return profile.victory = true;
+	if (counter == board_size - 1)  return true;
 	
-	return profile.victory;
+	return false;
 }
 
-int check_game_result()
+int check_game_results()
 {
 	if (win_conditions) return 0;
 	else if (!free_spaces) return 1;
@@ -156,7 +156,7 @@ int check_game_result()
 	return 2;
 }
 
-bool free_spaces(std::vector<std::vector<char>>& board, const int& board_size)
+bool free_spaces(std::vector<std::vector<char>>& board)
 {
 	for (std::vector<char> &fields : board)
 	{
@@ -193,4 +193,37 @@ void freeze_screen()
 {
 	std::cin.get();
 	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+}
+
+void clear_board(std::vector<std::vector<char>>& board)
+{
+	for (std::vector<char>& rows_and_columns : board)
+	{
+		for (char& fullfilled_fields : rows_and_columns)
+		{
+			fullfilled_fields = ' ';
+		}
+	}
+}
+
+char rematch()
+{
+	system("cls");
+	std::cout << "Do you want to play once more?[Y/N]\n";
+	char choice;
+	
+	while(true)
+	{
+		std::cin >> choice;
+		choice = toupper(choice);
+		if (choice != 'Y' && choice != 'N')
+		{
+			std::cout << "You've chosen a wrong letter! Pls, try again: ";
+			continue;
+		}
+
+		break;
+	}
+
+	return choice;
 }

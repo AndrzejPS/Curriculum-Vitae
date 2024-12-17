@@ -1,6 +1,5 @@
 ﻿#include <iostream>
 #include "Functions.h"
-#include <map>
 
 int main()
 {
@@ -31,7 +30,7 @@ int main()
                 freeze_screen();
                 break;
             }
-            else if (!free_spaces(board, board_size))
+            else if (!free_spaces(board))
             {
                 std::cout << "It's a tie!";
                 freeze_screen();
@@ -47,7 +46,7 @@ int main()
                 freeze_screen();
                 break;
             }
-            else if (!free_spaces(board, board_size))
+            else if (!free_spaces(board))
             {
                 std::cout << "It's a tie!";
                 freeze_screen();
@@ -55,16 +54,13 @@ int main()
             }
         }
 
-        system("cls");
-        std::cout << "Do you want to play once more?[Y/N]";
-        char choice;
-        std::cin >> choice;
-        choice = toupper(choice);
-        switch (choice)
+        switch (rematch())
         {
-            case 'N': return 0;
-            case 'Y':;
+        case 'N': return 0;
+        case 'Y':;
         }
+
+        clear_board(board);
     }
 }
 
