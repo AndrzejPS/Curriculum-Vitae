@@ -1,7 +1,7 @@
 #include "Functions.h"
 #include <iostream>
-#include <vector>
 #include <random>
+
 
 std::vector<std::vector<char>> create_board(const int& board_size)
 {
@@ -35,7 +35,7 @@ void write_board(std::vector<std::vector<char>> &board, const int& board_size)
 	}
 }
 
-void players_turn(std::vector<std::vector<char>>& board, const int& board_size)
+void players_turn(std::vector<std::vector<char>>& board, const int& board_size, player& profile)
 {
 	int row_number, column_number;
 	bool move_correct, taken_field;
@@ -70,7 +70,7 @@ void players_turn(std::vector<std::vector<char>>& board, const int& board_size)
 		else
 		{
 			taken_field = false;
-			board[row_number-1][column_number-1] = 'X';
+			board[row_number-1][column_number-1] = profile.emblem;
 		}
 
 	} while (taken_field);
@@ -100,7 +100,7 @@ int AI_move_generator(int low, int high)
 	return uid(re, Dist::param_type{ low,high });
 }
 
-bool win_condition(std::vector<std::vector<char>>& board, const int& board_size, player& profile)
+bool win_conditions(std::vector<std::vector<char>>& board, const int& board_size, player& profile)
 {
 	int counter = 0;
 	
@@ -146,4 +146,45 @@ bool win_condition(std::vector<std::vector<char>>& board, const int& board_size,
 	if (counter == board_size - 1) return profile.victory = true;
 	
 	return profile.victory;
+}
+
+int check_game_result()
+{
+	if (win_conditions) return 0;
+	else if (!free_spaces) return 1;
+	
+	return 2;
+}
+
+bool free_spaces(std::vector<std::vector<char>>& board, const int& board_size)
+{
+	for (std::vector<char> &fields : board)
+	{
+		for (char& freespaces : fields)
+		{
+			if (freespaces == ' ') return true;
+		}
+	}
+
+	return false;
+}
+
+void write_menu(std::map<int, char> &emblem_collection, player& profile)
+{
+	system("cls");
+	std::cout << "The Tic-Tac-Toe Game\n\nChoose your emblem:\n";
+
+	for (const std::pair<int,char> &emblem : emblem_collection)
+	{
+		std::cout << emblem.first << ". " << emblem.second << std::endl;
+	}
+
+	int decision;
+	std::cin >> decision;
+	
+	if (!emblem_collection.contains(decision))
+	{
+		std::cout << "Error!";
+	}
+	profile.emblem = emblem_collection[decision];
 }
