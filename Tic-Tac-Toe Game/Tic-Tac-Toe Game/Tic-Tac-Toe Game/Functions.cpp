@@ -248,3 +248,25 @@ void random_emblem_for_bot(profile& bot, std::map<int, char>& emblem_collection,
 
 	bot.emblem = emblem_collection[bot_emblem];
 }
+
+int choose_board_size()
+{
+	int size;
+	
+	while(true)
+	{
+		system("cls");
+		std::cout << "Choose the board size (type a length of the side of the board): ";
+		std::cin >> size;
+		if (size < 3)
+		{
+			system("cls");
+			std::cout << "The length of the side must be higher than 3! Pls, try again.";
+			freeze_screen();
+			continue;
+		}
+		break;
+	}
+	
+	return size;
+}

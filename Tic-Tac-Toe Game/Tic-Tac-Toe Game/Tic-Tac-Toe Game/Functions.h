@@ -23,3 +23,4 @@ void freeze_screen();
 void clear_board(std::vector<std::vector<char>>& board);
 char rematch();
 void random_emblem_for_bot(profile& bot, std::map<int, char>& symbols, int emblem_taken);
+int choose_board_size();

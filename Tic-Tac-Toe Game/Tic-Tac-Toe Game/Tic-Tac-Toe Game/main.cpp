@@ -3,20 +3,24 @@
 
 int main()
 {
-    const int board_size = 3;
-    std::vector<std::vector<char>> board = create_board(board_size);
-    profile p1 = { "Andrzej" };
-    profile p2 = { "Bot" };
-
     std::map<int, char> symbols;
     symbols[1] = 'X';
     symbols[2] = 'Y';
     symbols[3] = 'Z';
     symbols[4] = 'C';
     symbols[5] = 'O';
+    symbols[6] = '9';
+
+    
+    profile p1 = { "Andrzej" };
+    profile p2 = { "Bot" };
+
+   
 
     while (true)
     {
+        const int board_size = choose_board_size();
+        std::vector<std::vector<char>> board = create_board(board_size);
         random_emblem_for_bot(p2, symbols, emblem_choice(symbols, p1));
         while (true)
         {
@@ -59,7 +63,6 @@ int main()
         case 'N': return 0;
         case 'Y':;
         }
-
         clear_board(board);
     }
 }
