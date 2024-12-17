@@ -5,19 +5,19 @@ int main()
 {
     const int board_size = 3;
     std::vector<std::vector<char>> board = create_board(board_size);
-    player p1 = { "Andrzej" };
-    player p2 = { "Bot" };
+    profile p1 = { "Andrzej" };
+    profile p2 = { "Bot" };
 
     std::map<int, char> symbols;
     symbols[1] = 'X';
     symbols[2] = 'Y';
     symbols[3] = 'Z';
     symbols[4] = 'C';
+    symbols[5] = 'O';
 
     while (true)
     {
-        write_menu(symbols,p1);
-
+        random_emblem_for_bot(p2, symbols, emblem_choice(symbols, p1));
         while (true)
         {
             //player's turn
@@ -26,7 +26,7 @@ int main()
             write_board(board, board_size);
             if (win_conditions(board, board_size, p1))
             {
-                std::cout << "The winner is " << p1.players_name << "!";
+                std::cout << "The winner is " << p1.profile_name << "!";
                 freeze_screen();
                 break;
             }
@@ -38,11 +38,11 @@ int main()
             }
 
             //Bot's turn
-            AI_turn(board, board_size);
+            AI_turn(board, board_size,p2);
             write_board(board, board_size);
             if (win_conditions(board, board_size, p2))
             {
-                std::cout << "The winner is " << p2.players_name << "!";
+                std::cout << "The winner is " << p2.profile_name << "!";
                 freeze_screen();
                 break;
             }

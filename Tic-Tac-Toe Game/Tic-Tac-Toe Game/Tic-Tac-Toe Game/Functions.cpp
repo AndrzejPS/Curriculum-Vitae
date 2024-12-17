@@ -35,7 +35,7 @@ void write_board(std::vector<std::vector<char>> &board, const int& board_size)
 	}
 }
 
-void players_turn(std::vector<std::vector<char>>& board, const int& board_size, player& profile)
+void players_turn(std::vector<std::vector<char>>& board, const int& board_size, profile& player)
 {
 	int row_number, column_number;
 	bool move_correct, taken_field;
@@ -70,14 +70,14 @@ void players_turn(std::vector<std::vector<char>>& board, const int& board_size, 
 		else
 		{
 			taken_field = false;
-			board[row_number-1][column_number-1] = profile.emblem;
+			board[row_number-1][column_number-1] = player.emblem;
 		}
 
 	} while (taken_field);
 
 }
 
-void AI_turn(std::vector<std::vector<char>>& board, const int& board_size)
+void AI_turn(std::vector<std::vector<char>>& board, const int& board_size,profile& bot)
 {
 	int row_number, column_number;
 
@@ -88,7 +88,7 @@ void AI_turn(std::vector<std::vector<char>>& board, const int& board_size)
 
 	} while (board[row_number-1][column_number-1] != ' ');
 
-	board[row_number-1][column_number-1] = 'O';
+	board[row_number-1][column_number-1] = bot.emblem;
 }
 
 int AI_move_generator(int low, int high)
@@ -100,7 +100,7 @@ int AI_move_generator(int low, int high)
 	return uid(re, Dist::param_type{ low,high });
 }
 
-bool win_conditions(std::vector<std::vector<char>>& board, const int& board_size, player& profile)
+bool win_conditions(std::vector<std::vector<char>>& board, const int& board_size, profile& player)
 {
 	int counter = 0;
 	
@@ -169,24 +169,33 @@ bool free_spaces(std::vector<std::vector<char>>& board)
 	return false;
 }
 
-void write_menu(std::map<int, char> &emblem_collection, player& profile)
+int emblem_choice(std::map<int, char> &emblem_collection, profile& player)
 {
-	system("cls");
-	std::cout << "The Tic-Tac-Toe Game\n\nChoose your emblem:\n";
-
-	for (const std::pair<int,char> &emblem : emblem_collection)
+	while (true)
 	{
-		std::cout << emblem.first << ". " << emblem.second << std::endl;
-	}
+		system("cls");
+		std::cout<<"Choose your emblem: \n";
 
-	int decision;
-	std::cin >> decision;
+		for (const std::pair<int,char> &emblem : emblem_collection)
+		{
+			std::cout << emblem.first << ". " << emblem.second << std::endl;
+		}
+
 	
-	if (!emblem_collection.contains(decision))
-	{
-		std::cout << "Error!";
+		int decision;
+
+		std::cin >> decision;
+		if (!emblem_collection.contains(decision))
+		{
+			system("cls");
+			std::cout << "Chosen a wrong number! Pls, try again.";
+			freeze_screen();
+			continue;
+		}
+		player.emblem = emblem_collection[decision];
+		return decision;
 	}
-	profile.emblem = emblem_collection[decision];
+	
 }
 
 void freeze_screen()
@@ -226,4 +235,16 @@ char rematch()
 	}
 
 	return choice;
+}
+
+void random_emblem_for_bot(profile& bot, std::map<int, char>& emblem_collection, int emblem_taken)
+{
+	int bot_emblem;
+	do
+	{
+		bot_emblem = AI_move_generator(1, emblem_collection.size());
+
+	} while (bot_emblem == emblem_taken);
+
+	bot.emblem = emblem_collection[bot_emblem];
 }
