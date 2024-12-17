@@ -188,3 +188,9 @@ void write_menu(std::map<int, char> &emblem_collection, player& profile)
 	}
 	profile.emblem = emblem_collection[decision];
 }
+
+void freeze_screen()
+{
+	std::cin.get();
+	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+}

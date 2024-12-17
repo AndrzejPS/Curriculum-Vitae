@@ -28,12 +28,13 @@ int main()
             if (win_conditions(board, board_size, p1))
             {
                 std::cout << "The winner is " << p1.players_name << "!";
-                std::cin.get();
+                freeze_screen();
                 break;
             }
             else if (!free_spaces(board, board_size))
             {
                 std::cout << "It's a tie!";
+                freeze_screen();
                 break;
             }
 
@@ -43,13 +44,13 @@ int main()
             if (win_conditions(board, board_size, p2))
             {
                 std::cout << "The winner is " << p2.players_name << "!";
-                std::cin.get();
+                freeze_screen();
                 break;
             }
             else if (!free_spaces(board, board_size))
             {
                 std::cout << "It's a tie!";
-                std::cin.get();
+                freeze_screen();
                 break;
             }
         }

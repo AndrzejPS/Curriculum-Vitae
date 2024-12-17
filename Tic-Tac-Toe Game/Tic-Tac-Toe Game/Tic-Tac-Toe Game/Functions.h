@@ -19,3 +19,4 @@ bool win_conditions(std::vector<std::vector<char>>& board, const int& board_size
 int check_game_result();
 bool free_spaces(std::vector<std::vector<char>>& board, const int& board_size);
 void write_menu(std::map<int, char>& emblem_collection, player& profile);
+void freeze_screen();
