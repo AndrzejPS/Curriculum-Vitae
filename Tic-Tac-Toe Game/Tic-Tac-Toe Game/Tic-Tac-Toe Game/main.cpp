@@ -1,17 +1,16 @@
 ﻿#include <iostream>
 #include "Functions.h"
+#include "Board.h"
+#include "Players.h"
 
 int main()
 {
     std::map<int, char> symbols;
     symbols[1] = 'X';
-    symbols[2] = 'Y';
-    symbols[3] = 'Z';
-    symbols[4] = 'C';
-    symbols[5] = 'O';
-    symbols[6] = '9';
+    symbols[2] = 'O';
+    symbols[3] = 'Y';
+    //to add an emblem, just type a new one here
 
-    
     profile p1 = { "Andrzej" };
     profile p2 = { "Bot" };
 
