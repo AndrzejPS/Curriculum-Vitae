@@ -69,7 +69,6 @@ int main()
     }
 }
 
-
 /*
 To do list:
 1. Validation!
