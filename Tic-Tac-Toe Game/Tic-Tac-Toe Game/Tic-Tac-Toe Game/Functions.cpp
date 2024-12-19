@@ -1,7 +1,7 @@
 #include "Functions.h"
 #include <iostream>
 
-void menu(profile& player, profile& Ai, std::map<int, char>& emblem_collection)
+int menu(profile& player1, profile& player2, std::map<int, char>& emblem_collection)
 {
 	int chosen_option;
 
@@ -13,8 +13,8 @@ void menu(profile& player, profile& Ai, std::map<int, char>& emblem_collection)
 		std::cin >> chosen_option;
 		switch (chosen_option)
 		{
-			case 1: singleplayer_game(player, Ai, emblem_collection); break;
-			case 2:
+		case 1: singleplayer_game(player1, player2, emblem_collection); return 1;
+		case 2: multiplayer_game(player1, player2, emblem_collection); return 2;
 			case 3: 
 			case 4:
 			case 5: exit (0);
@@ -31,6 +31,30 @@ void singleplayer_game(profile& player, profile& Ai, std::map<int, char>& emblem
 	std::cin >> player.profile_name;
 	Ai.profile_name = "Computer";
 	random_emblem_for_bot(Ai, emblem_collection, emblem_choice(emblem_collection, player));
+}
+
+void multiplayer_game(profile& player1, profile& player2, std::map<int, char>& emblem_collection)
+{
+	system("cls");
+	std::cout << "Type nickname for the first player: ";
+	std::cin >> player1.profile_name;
+	int taken_emblem = emblem_choice(emblem_collection, player1);
+
+	system("cls");
+	std::cout << "Type nickname for the second player: ";
+	std::cin >> player2.profile_name;
+
+	while(true)
+	{
+		if (taken_emblem == emblem_choice(emblem_collection, player2))
+		{
+			system("cls");
+			std::cout << "This emblem is already taken! Pls, choose other emblem.";
+			freeze_screen();
+			continue;
+		}
+		break;
+	}
 }
 
 char rematch()

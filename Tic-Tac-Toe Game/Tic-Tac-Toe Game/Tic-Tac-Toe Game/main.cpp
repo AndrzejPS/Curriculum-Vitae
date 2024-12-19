@@ -14,27 +14,51 @@ int main()
 
     profile p1,p2;
 
-    menu(p1, p2, symbols);
+    int gamemode = menu(p1, p2, symbols);
    
     while (true)
     {
         const int board_size = choose_board_size();
         std::vector<std::vector<char>> board = create_board(board_size);
 
-        while (true)
+        switch (gamemode)
         {
-            //player's turn
-            write_board(board, board_size);
-            players_turn(board, board_size,p1);
-            write_board(board, board_size);
-            if (check_game_results(p1, board, board_size)) break;
+            case 1:
+            {
+                while (true)
+                {
+                    //player's turn
+                    write_board(board, board_size);
+                    players_turn(board, board_size, p1);
+                    write_board(board, board_size);
+                    if (check_game_results(p1, board, board_size)) break;
 
-            //Bot's turn
-            AI_turn(board, board_size,p2);
-            write_board(board, board_size);
-            if (check_game_results(p2, board, board_size)) break;
+                    //Bot's turn
+                    AI_turn(board, board_size, p2);
+                    write_board(board, board_size);
+                    if (check_game_results(p2, board, board_size)) break;
+                }
+                break;
+            }
+           
+            case 2:
+            {
+                while (true)
+                {
+                    //player1's turn
+                    write_board(board, board_size);
+                    players_turn(board, board_size, p1);
+                    write_board(board, board_size);
+                    if (check_game_results(p1, board, board_size)) break;
+
+                    //Player2's turn
+                    players_turn(board, board_size, p2);
+                    write_board(board, board_size);
+                    if (check_game_results(p2, board, board_size)) break;
+                }
+            }
         }
-
+        
         switch (rematch())
         {
         case 'N': return 0;
