@@ -6,30 +6,20 @@
 
 int main()
 {
-    std::map<int, std::string> menu =
-    {
-        {1, "New game"},
-        {2, "High score table"},
-        {3, "Game information"},
-        {4, "Exit game" }
-    };
-
     std::map<int, char> symbols;
     symbols[1] = 'X';
     symbols[2] = 'O';
     symbols[3] = 'Y';
     //to add an emblem, just type a new one here
 
-    profile p1 = { "Andrzej" };
-    profile p2 = { "Bot" };
+    profile p1,p2;
 
+    menu(p1, p2, symbols);
    
-
     while (true)
     {
         const int board_size = choose_board_size();
         std::vector<std::vector<char>> board = create_board(board_size);
-        random_emblem_for_bot(p2, symbols, emblem_choice(symbols, p1));
 
         while (true)
         {
@@ -57,7 +47,7 @@ int main()
 
 /*
 To do list:
-1. Walidacje!
+1. Validation!
 2. Menu
 3. Scoring
 */
