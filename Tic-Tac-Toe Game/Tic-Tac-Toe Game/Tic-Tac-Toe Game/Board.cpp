@@ -1,4 +1,5 @@
 #include <iostream>
+#include "Board.h"
 #include "Functions.h"
 
 int choose_board_size()

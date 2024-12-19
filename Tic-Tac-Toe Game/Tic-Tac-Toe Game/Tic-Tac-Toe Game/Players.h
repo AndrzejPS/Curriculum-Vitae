@@ -2,11 +2,13 @@
 #include <vector>
 #include <map>
 #include <string>
+#include <random>
 
 struct profile
 {
 	std::string profile_name;
-	char emblem = ' ';
+	char emblem;
+	int score = 0;
 };
 
 void players_turn(std::vector<std::vector<char>>& board, const int& board_size, profile& player);

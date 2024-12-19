@@ -1,6 +1,6 @@
-#include <iostream>
 #include "Players.h"
 #include "Functions.h"
+#include <iostream>
 
 void players_turn(std::vector<std::vector<char>>& board, const int& board_size, profile& player)
 {
