@@ -1,5 +1,6 @@
 #include "Functions.h"
 #include <iostream>
+#include <fstream>
 
 int menu(profile& player1, profile& player2, std::map<int, char>& emblem_collection)
 {
@@ -15,12 +16,12 @@ int menu(profile& player1, profile& player2, std::map<int, char>& emblem_collect
 		{
 		case 1: singleplayer_game(player1, player2, emblem_collection); return 1;
 		case 2: multiplayer_game(player1, player2, emblem_collection); return 2;
-			case 3: 
+		case 3: high_score_table(); break;
 			case 4:
 			case 5: exit (0);
-			default: std::cout << "There is no such an option! Pls, try again."; freeze_screen(); continue;
+			default: std::cout << "There is no such an option! Pls, try again."; freeze_screen();
 		}
-		break;
+
 	}
 }
 
@@ -55,6 +56,30 @@ void multiplayer_game(profile& player1, profile& player2, std::map<int, char>& e
 		}
 		break;
 	}
+}
+
+void high_score_table()
+{
+	std::fstream scores_file("Table of high scores.txt");
+	std::string personal_high_score;
+
+	system("cls");
+
+	if (!scores_file.good())
+	{
+		std::cout << "Can't load the the high score table.";
+		freeze_screen();
+		return;
+	}
+
+	while(getline(scores_file, personal_high_score))
+	{
+		std::cout << personal_high_score << std::endl;
+	}
+
+	scores_file.close();
+	freeze_screen();
+	system("cls");
 }
 
 char rematch()

@@ -52,7 +52,6 @@ void write_board(std::vector<std::vector<char>>& board, const int& board_size)
 		}
 		std::cout << std::endl;
 
-
 		if (i < board_size - 1)
 		{
 			//rows
@@ -61,9 +60,6 @@ void write_board(std::vector<std::vector<char>>& board, const int& board_size)
 			//extra prints for rows to even a higher numbered sides of board
 			for (int x = 0; x < board_size - 3; x++)std::cout << "-";
 		}
-
-
-
 		std::cout << std::endl;
 	}
 }
