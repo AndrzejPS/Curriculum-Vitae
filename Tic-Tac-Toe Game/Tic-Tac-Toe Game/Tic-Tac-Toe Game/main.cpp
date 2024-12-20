@@ -14,15 +14,18 @@ int main()
 
     profile p1,p2;
 
-    int gamemode = menu(p1, p2, symbols);
-   
     while (true)
     {
-        const int board_size = choose_board_size();
-        std::vector<std::vector<char>> board = create_board(board_size);
+        int gamemode = menu(p1, p2, symbols);
+        if (gamemode == 5) break;
 
-        switch (gamemode)
+        while (true)
         {
+            const int board_size = choose_board_size();
+            std::vector<std::vector<char>> board = create_board(board_size);
+
+            switch (gamemode)
+            {
             case 1:
             {
                 while (true)
@@ -40,7 +43,7 @@ int main()
                 }
                 break;
             }
-           
+
             case 2:
             {
                 while (true)
@@ -57,15 +60,17 @@ int main()
                     if (check_game_results(p2, board, board_size)) break;
                 }
             }
+            }
+
+            switch (rematch())
+            {
+            case 'N': break;
+            case 'Y': clear_board(board); continue;
+            default: std::cerr << "Error: code(1)!"; return(1);
+            }
+
+            break;
         }
-        
-        switch (rematch())
-        {
-        case 'N': return 0;
-        case 'Y':break;
-        default: std::cerr << "Error: code(1)!"; return(1);
-        }
-        clear_board(board);
     }
 }
 

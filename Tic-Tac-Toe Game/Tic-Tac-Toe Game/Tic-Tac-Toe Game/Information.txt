@@ -1,0 +1,8 @@
+The (Un)Classic Tic-Tac-Toe Game it's a digital version of classic game Tic-Tac-Toe,
+however this program enables you to play on chosen board size with chosen emblems
+(very helpful, if you are bored with the old classical setting).
+
+There are two game modes, both with a single and a multiplayer variant.
+The first one is a Tic-Tac-Toe with basic rules, and the second is a "Crazy mode", where, after each player's turn, one field is randomly chosen and cleared. Obviously the outcome would be probably unfair in this scenario, therefore I think "Crazy mode" could make games much more intensive, memorable and funny.
+
+The whole game was made by me, AndrzejPS

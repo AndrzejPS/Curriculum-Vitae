@@ -5,20 +5,24 @@
 int menu(profile& player1, profile& player2, std::map<int, char>& emblem_collection)
 {
 	int chosen_option;
+	
 
 	while (true)
 	{
+		system("cls");
 		std::cout << "The (Un)Classic Tic-Tac-Toe Game\n\n";
 		std::cout << "Choose an option:\n1. New singleplayer game (PvE)\n2. New multiplayer game (PvP)\n3. High score table\n4. Game information\n5. Exit game" << std::endl;
 
 		std::cin >> chosen_option;
+		system("cls");
+
 		switch (chosen_option)
 		{
-		case 1: singleplayer_game(player1, player2, emblem_collection); return 1;
-		case 2: multiplayer_game(player1, player2, emblem_collection); return 2;
-		case 3: high_score_table(); break;
-			case 4:
-			case 5: exit (0);
+			case 1: singleplayer_game(player1, player2, emblem_collection); return 1;
+			case 2: multiplayer_game(player1, player2, emblem_collection); return 2;
+			case 3: high_score_table(); break;
+			case 4: game_information(); break;
+			case 5: std::cout << "Bye,bye!"; return 5;
 			default: std::cout << "There is no such an option! Pls, try again."; freeze_screen();
 		}
 
@@ -27,7 +31,6 @@ int menu(profile& player1, profile& player2, std::map<int, char>& emblem_collect
 
 void singleplayer_game(profile& player, profile& Ai, std::map<int, char>& emblem_collection)
 {
-	system("cls");
 	std::cout << "Type your nickname: ";
 	std::cin >> player.profile_name;
 	Ai.profile_name = "Computer";
@@ -36,7 +39,6 @@ void singleplayer_game(profile& player, profile& Ai, std::map<int, char>& emblem
 
 void multiplayer_game(profile& player1, profile& player2, std::map<int, char>& emblem_collection)
 {
-	system("cls");
 	std::cout << "Type nickname for the first player: ";
 	std::cin >> player1.profile_name;
 	int taken_emblem = emblem_choice(emblem_collection, player1);
@@ -63,11 +65,9 @@ void high_score_table()
 	std::fstream scores_file("Table of high scores.txt");
 	std::string personal_high_score;
 
-	system("cls");
-
 	if (!scores_file.good())
 	{
-		std::cout << "Can't load the the high score table.";
+		std::cout << "Coudn't load the the high score table. Error: code(2)!";
 		freeze_screen();
 		return;
 	}
@@ -79,7 +79,27 @@ void high_score_table()
 
 	scores_file.close();
 	freeze_screen();
-	system("cls");
+}
+
+void game_information()
+{
+	std::fstream info_file("Information.txt");
+	std::string line;
+
+	if(!info_file.good())
+	{
+		std::cout << "Coudn't load the file. Error: code(3)!";
+		freeze_screen();
+		return;
+	}
+
+	while (getline(info_file, line))
+	{
+		std::cout << line << std::endl;
+	}
+
+	info_file.close();
+	freeze_screen();
 }
 
 char rematch()
