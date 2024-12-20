@@ -7,7 +7,7 @@
 struct profile
 {
 	std::string profile_name;
-	char emblem;
+	char emblem ;
 	int score = 0;
 };
 

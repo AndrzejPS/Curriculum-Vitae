@@ -1,10 +1,8 @@
 #include "Game_rules.h"
 
-
 bool win_conditions(std::vector<std::vector<char>>& board, const int& board_size)
 {
 	int counter = 0;
-
 
 	//horizontally
 	for (int i = 0; i < board_size; i++)
@@ -63,12 +61,13 @@ bool free_spaces(std::vector<std::vector<char>>& board)
 	return false;
 }
 
-bool check_game_results(profile& player, std::vector<std::vector<char>>& board, const int& board_size)
+bool check_game_results(profile& player1, profile& player2, std::vector<std::vector<char>>& board, const int& board_size)
 {
 	if (win_conditions(board, board_size))
 	{
-		player.score++;
-		std::cout << "End of the game. The winner is " << player.profile_name << '!';
+		player1.score++;
+		std::cout << "End of the game. The winner is " << player1.profile_name << '!' << std::endl;
+		std::cout << "The final score: " << player1.profile_name << " (" << player1.score << " wins) - (" << player2.score << " wins) " << player2.profile_name;
 		freeze_screen();
 		return true;
 	}
