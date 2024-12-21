@@ -62,6 +62,8 @@ void show_leaderboard(const std::vector<std::pair<std::string, int>> &leaderboar
 {
 	if (leaderboard.empty())
 	{
+		std::cerr << "Couldn't load the leaderboard or the leaderboard does not exist. Error: code(2)!";
+		freeze_screen();
 		return;
 	}
 
@@ -132,8 +134,6 @@ std::vector<std::pair<std::string,int>> make_leaderboard()
 
 		if (!scores_file.good())
 		{
-			std::cerr << "Couldn't load the leaderboard. Error: code(2)!";
-			freeze_screen();
 			return leaderboard;
 		}
 

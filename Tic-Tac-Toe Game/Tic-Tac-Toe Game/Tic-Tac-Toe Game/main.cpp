@@ -11,6 +11,7 @@ int main()
     symbols[2] = 'O';
     symbols[3] = 'Y';
     symbols[4] = '!';
+    symbols[5] = '?';
     //to add an emblem, just type a new one here
 
     profile p1,p2;
