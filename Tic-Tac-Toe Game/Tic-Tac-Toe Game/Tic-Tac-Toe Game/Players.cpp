@@ -1,6 +1,7 @@
 #include "Players.h"
 #include "Functions.h"
-#include <iostream>
+
+
 
 void players_turn(std::vector<std::vector<char>>& board, const int& board_size, profile& player)
 {
@@ -107,3 +108,4 @@ void random_emblem_for_bot(profile& bot, std::map<int, char>& emblem_collection,
 
 	bot.emblem = emblem_collection[bot_emblem];
 }
+

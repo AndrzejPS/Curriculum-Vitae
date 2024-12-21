@@ -35,7 +35,11 @@ int main()
                     write_board(board, board_size);
                     players_turn(board, board_size, p1);
                     write_board(board, board_size);
-                    if (check_game_results(p1,p2, board, board_size)) break;
+                    if (check_game_results(p1, p2, board, board_size))
+                    {
+                        save_score_decision(make_leaderboard(), p1);
+                        break;
+                    }
 
                     //Bot's turn
                     AI_turn(board, board_size, p2);
@@ -53,12 +57,20 @@ int main()
                     write_board(board, board_size);
                     players_turn(board, board_size, p1);
                     write_board(board, board_size);
-                    if (check_game_results(p1,p2, board, board_size)) break;
+                    if (check_game_results(p1, p2, board, board_size))
+                    {
+                        save_score_decision(make_leaderboard(), p1);
+                        break;
+                    }
 
                     //Player2's turn
                     players_turn(board, board_size, p2);
                     write_board(board, board_size);
-                    if (check_game_results(p2,p1, board, board_size)) break;
+                    if (check_game_results(p2, p1, board, board_size))
+                    {
+                        save_score_decision(make_leaderboard(), p2);
+                        break;
+                    }  
                 }
             }
             }
