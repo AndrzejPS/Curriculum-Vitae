@@ -34,7 +34,9 @@ void players_turn(std::vector<std::vector<char>>& board, const int& board_size, 
 		if (board[row_number - 1][column_number - 1] != ' ')
 		{
 			taken_field = true;
+			system("cls");
 			std::cout << "This field is already taken! Pls, try again.\n";
+			freeze_screen();
 		}
 		else
 		{
