@@ -1,5 +1,5 @@
 #include "Board.h"
-#include "Functions.h"
+#include "Menu.h"
 
 int choose_board_size()
 {

@@ -1,34 +1,35 @@
 #include "Players.h"
-#include "Functions.h"
+#include "Menu.h"
 
 
 
 void players_turn(std::vector<std::vector<char>>& board, const int& board_size, profile& player)
 {
 	int row_number, column_number;
-	bool move_correct, taken_field;
+	bool taken_field;
 
 	do
 	{
-		do
+		while(true)
 		{
-
+			write_board(board, board_size);
 			std::cout << "Type the number of row (1-" << board_size << "): ";
-			std::cin >> row_number;
+			if (!type_validation_int(row_number)) continue;
 			std::cout << "Type the number of column(1-" << board_size << "): ";
-			std::cin >> column_number;
+			if (!type_validation_int(column_number)) continue;
 
 			if (row_number > 0 && row_number <= board_size && column_number > 0 && column_number <= board_size)
 			{
-				move_correct = true;
+				break;
 			}
 			else
 			{
-				move_correct = false;
+				system("cls");
 				std::cout << "Your move is incorrect! Pls, try again.\n";
+				freeze_screen();
+				continue;
 			}
-
-		} while (!move_correct);
+		}
 
 		if (board[row_number - 1][column_number - 1] != ' ')
 		{

@@ -1,4 +1,4 @@
-﻿#include "Functions.h"
+﻿#include "Menu.h"
 #include "Board.h"
 #include "Players.h"
 #include "Game_rules.h"
@@ -35,7 +35,6 @@ int main()
                     while (true)
                     {
                         //player's turn
-                        write_board(board, board_size);
                         players_turn(board, board_size, p1);
                         write_board(board, board_size);
                         if (check_game_results(p1, p2, board, board_size))
