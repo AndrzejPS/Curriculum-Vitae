@@ -18,62 +18,67 @@ int main()
 
     while (true)
     {
-        int gamemode = menu(p1, p2, symbols);
-        if (gamemode == 5) break;
+        int choice = menu(p1, p2, symbols);
+        if (choice == 5) break;
 
         while (true)
         {
+           const int gamemode = gamemode_decision();
             const int board_size = choose_board_size();
             std::vector<std::vector<char>> board = create_board(board_size);
 
-            switch (gamemode)
+            switch (choice)
             {
-            case 1:
-            {
-                while (true)
+                case 1:
                 {
-                    //player's turn
-                    write_board(board, board_size);
-                    players_turn(board, board_size, p1);
-                    write_board(board, board_size);
-                    if (check_game_results(p1, p2, board, board_size))
+                    while (true)
                     {
-                        save_score_decision(make_leaderboard(), p1);
-                        break;
+                        //player's turn
+                        write_board(board, board_size);
+                        players_turn(board, board_size, p1);
+                        write_board(board, board_size);
+                        if (check_game_results(p1, p2, board, board_size))
+                        {
+                            save_score_decision(make_leaderboard(), p1);
+                            break;
+                        }
+                        if (gamemode == 2) crazy_mode(board, board_size);
+
+                        //Bot's turn
+                        AI_turn(board, board_size, p2);
+                        write_board(board, board_size);
+                        if (check_game_results(p2,p1, board, board_size)) break;
+                        if (gamemode == 2) crazy_mode(board, board_size);
                     }
-
-                    //Bot's turn
-                    AI_turn(board, board_size, p2);
-                    write_board(board, board_size);
-                    if (check_game_results(p2,p1, board, board_size)) break;
+                    break;
                 }
-                break;
-            }
 
-            case 2:
-            {
-                while (true)
+                case 2:
                 {
-                    //player1's turn
-                    write_board(board, board_size);
-                    players_turn(board, board_size, p1);
-                    write_board(board, board_size);
-                    if (check_game_results(p1, p2, board, board_size))
+                    while (true)
                     {
-                        save_score_decision(make_leaderboard(), p1);
-                        break;
-                    }
+                        //player1's turn
+                        write_board(board, board_size);
+                        players_turn(board, board_size, p1);
+                        write_board(board, board_size);
+                        if (check_game_results(p1, p2, board, board_size))
+                        {
+                            save_score_decision(make_leaderboard(), p1);
+                            break;
+                        }
+                        if (gamemode == 2) crazy_mode(board, board_size);
 
-                    //Player2's turn
-                    players_turn(board, board_size, p2);
-                    write_board(board, board_size);
-                    if (check_game_results(p2, p1, board, board_size))
-                    {
-                        save_score_decision(make_leaderboard(), p2);
-                        break;
-                    }  
+                        //Player2's turn
+                        players_turn(board, board_size, p2);
+                        write_board(board, board_size);
+                        if (check_game_results(p2, p1, board, board_size))
+                        {
+                            save_score_decision(make_leaderboard(), p2);
+                            break;
+                        } 
+                        if (gamemode == 2) crazy_mode(board, board_size);
+                    }
                 }
-            }
             }
 
             switch (rematch())
@@ -91,6 +96,4 @@ int main()
 /*
 To do list:
 1. Validation!
-2. Menu
-3. Scoring
 */

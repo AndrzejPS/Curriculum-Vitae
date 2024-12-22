@@ -58,6 +58,36 @@ void multiplayer_game(profile& player1, profile& player2, std::map<int, char>& e
 	}
 }
 
+int gamemode_decision()
+{
+	system("cls");
+	std::cout << "Which gamemod do you want to play?\n1. Classic mode\n2. Crazy mode\n";
+
+	int decision;
+	
+	while(true)
+	{
+		std::cin >> decision;
+		if (decision == 1 || decision == 2) return decision;
+
+		system("cls");
+		std::cout << "There is no such an option! Pls, try again.";
+		freeze_screen();
+	}
+}
+
+void crazy_mode(std::vector<std::vector<char>> board, const int& board_size)
+{
+	int row_number, column_number;
+
+	row_number = AI_move_generator(1, board_size-1);
+	column_number = AI_move_generator(1, board_size-1);
+	board[row_number][column_number] = ' ';
+	write_board(board, board_size);
+	std::cout << "The field [" << row_number << "][" << column_number << "] was cleared.";
+	freeze_screen();
+}
+
 void show_leaderboard(const std::vector<std::pair<std::string, int>> &leaderboard)
 {
 	if (leaderboard.empty())
