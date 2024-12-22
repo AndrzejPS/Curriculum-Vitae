@@ -7,9 +7,9 @@
 #include <fstream>
 #include <sstream>
 
-int menu(profile& player, profile& Ai, std::map<int, char>& emblem_collection);
-void singleplayer_game(profile& player, profile& Ai, std::map<int, char>& emblem_collection);
-void multiplayer_game(profile& player1, profile& player2, std::map<int, char>& emblem_collection);
+int menu(profile& player, profile& Ai, std::map<int, char>& emblem_collection, int& gamemode);
+void singleplayer_game(profile& player, profile& Ai, std::map<int, char>& emblem_collection, int& gamemode);
+void multiplayer_game(profile& player1, profile& player2, std::map<int, char>& emblem_collection, int& gamemode);
 int gamemode_decision();
 void crazy_mode(std::vector<std::vector<char>> board, const int& board_size);
 void show_leaderboard(const std::vector<std::pair<std::string, int>>&leaderboard);
@@ -19,6 +19,8 @@ void save_score_decision(std::vector<std::pair<std::string, int>> leaderboard, c
 bool save_score(std::vector<std::pair<std::string, int>>& leaderboard);
 void freeze_screen();
 char rematch();
+bool type_validation_int(int& input);
+bool type_validation_char(char& input);
 
 
 

@@ -9,7 +9,9 @@ int choose_board_size()
 	{
 		system("cls");
 		std::cout << "Choose the board size (type a length of the side of the board): ";
-		std::cin >> size;
+		
+		if (!type_validation_int(size)) continue;
+
 		if (size < 3)
 		{
 			system("cls");

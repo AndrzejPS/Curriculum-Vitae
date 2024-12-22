@@ -1,23 +1,22 @@
 #include "Functions.h"
 
-int menu(profile& player1, profile& player2, std::map<int, char>& emblem_collection)
+int menu(profile& player1, profile& player2, std::map<int, char>& emblem_collection, int& gamemode)
 {
 	int chosen_option;
 	
-
 	while (true)
 	{
 		system("cls");
 		std::cout << "The (Un)Classic Tic-Tac-Toe Game\n\n";
 		std::cout << "Choose an option:\n1. New singleplayer game (PvE)\n2. New multiplayer game (PvP)\n3. Leaderboard\n4. Game information\n5. Exit game" << std::endl;
 
-		std::cin >> chosen_option;
+		if(!type_validation_int(chosen_option)) continue;
 		system("cls");
 
 		switch (chosen_option)
 		{
-			case 1: singleplayer_game(player1, player2, emblem_collection); return 1;
-			case 2: multiplayer_game(player1, player2, emblem_collection); return 2;
+			case 1: singleplayer_game(player1, player2, emblem_collection, gamemode); return 1;
+			case 2: multiplayer_game(player1, player2, emblem_collection, gamemode); return 2;
 			case 3: show_leaderboard(make_leaderboard()); break;
 			case 4: game_information(); break;
 			case 5: std::cout << "Bye,bye!\n"; return 5;
@@ -27,16 +26,20 @@ int menu(profile& player1, profile& player2, std::map<int, char>& emblem_collect
 	}
 }
 
-void singleplayer_game(profile& player, profile& Ai, std::map<int, char>& emblem_collection)
+void singleplayer_game(profile& player, profile& Ai, std::map<int, char>& emblem_collection, int& gamemode)
 {
+	gamemode = gamemode_decision();
+	system("cls");
 	std::cout << "Type your nickname: ";
 	std::cin >> player.profile_name;
 	Ai.profile_name = "Computer";
 	random_emblem_for_bot(Ai, emblem_collection, emblem_choice(emblem_collection, player));
 }
 
-void multiplayer_game(profile& player1, profile& player2, std::map<int, char>& emblem_collection)
+void multiplayer_game(profile& player1, profile& player2, std::map<int, char>& emblem_collection, int& gamemode)
 {
+	gamemode = gamemode_decision();
+	system("cls");
 	std::cout << "Type nickname for the first player: ";
 	std::cin >> player1.profile_name;
 	int taken_emblem = emblem_choice(emblem_collection, player1);
@@ -60,15 +63,14 @@ void multiplayer_game(profile& player1, profile& player2, std::map<int, char>& e
 
 int gamemode_decision()
 {
-	system("cls");
-	std::cout << "Which gamemod do you want to play?\n1. Classic mode\n2. Crazy mode\n";
-
-	int decision;
-	
-	while(true)
+	while (true)
 	{
-		std::cin >> decision;
-		if (decision == 1 || decision == 2) return decision;
+		system("cls");
+		std::cout << "Which gamemod do you want to play?\n1. Classic mode\n2. Crazy mode\n";
+
+		int decision;
+		if(!type_validation_int(decision))continue;
+		else if (decision == 1 || decision == 2) return decision;
 
 		system("cls");
 		std::cout << "There is no such an option! Pls, try again.";
@@ -131,20 +133,20 @@ void game_information()
 
 char rematch()
 {
-	system("cls");
-	std::cout << "Do you want to play once more?[Y/N]\n";
 	char choice;
-	
-	while(true)
+
+	while (true)
 	{
-		std::cin >> choice;
+		system("cls");
+		std::cout << "Do you want to play once more?[Y/N]\n";
+	
+		if (!type_validation_char(choice)) continue;
 		choice = toupper(choice);
 		if (choice != 'Y' && choice != 'N')
 		{
 			std::cout << "You've chosen a wrong letter! Pls, try again: ";
 			continue;
 		}
-
 		break;
 	}
 
@@ -207,6 +209,8 @@ void save_score_decision(std::vector<std::pair<std::string, int>> leaderboard,co
 	{
 		system("cls");
 		std::cout << "Would you like (the winner) to save/update your score in the high score table?[Y/N]" << std::endl;
+
+		
 		std::cin >> save_score_decision;
 		save_score_decision = toupper(save_score_decision);
 
@@ -257,4 +261,42 @@ bool save_score(std::vector<std::pair<std::string, int>>& leaderboard)
 	return true;
 
 	score_file.close();
+}
+
+bool type_validation_int(int& input)
+{
+	if(!(std::cin >> input))
+	{
+		system("cls");
+		std::cerr << "Entered wrong data type! Pls try again.\n";
+
+		//clearing stream
+		std::cin.clear();
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+		//freezing screen
+		std::cin.get();
+		return false;
+	}
+
+	return true;
+}
+
+bool type_validation_char(char& input)
+{
+	if(!(std::cin >> input))
+	{
+		system("cls");
+		std::cerr << "Entered wrong data type! Pls try again.\n";
+
+		//clearing stream
+		std::cin.clear();
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+		//freezing screen
+		std::cin.get();
+		return false;
+	}
+
+	return true;
 }

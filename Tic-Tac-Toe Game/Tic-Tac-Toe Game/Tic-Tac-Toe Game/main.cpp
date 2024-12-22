@@ -18,12 +18,13 @@ int main()
 
     while (true)
     {
-        int choice = menu(p1, p2, symbols);
+        int gamemode;
+        int choice = menu(p1, p2, symbols, gamemode);
         if (choice == 5) break;
 
         while (true)
         {
-           const int gamemode = gamemode_decision();
+           
             const int board_size = choose_board_size();
             std::vector<std::vector<char>> board = create_board(board_size);
 

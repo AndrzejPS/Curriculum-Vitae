@@ -52,6 +52,7 @@ int emblem_choice(std::map<int, char>& emblem_collection, profile& player)
 		system("cls");
 		std::cout << "Choose your emblem: \n";
 
+		//printing available emblems
 		for (const std::pair<int, char>& emblem : emblem_collection)
 		{
 			std::cout << emblem.first << ". " << emblem.second << std::endl;
@@ -59,8 +60,8 @@ int emblem_choice(std::map<int, char>& emblem_collection, profile& player)
 
 
 		int decision;
+		if (!type_validation_int(decision)) continue;
 
-		std::cin >> decision;
 		if (!emblem_collection.contains(decision))
 		{
 			system("cls");
