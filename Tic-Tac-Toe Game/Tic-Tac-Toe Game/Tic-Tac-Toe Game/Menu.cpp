@@ -15,8 +15,8 @@ int menu(profile& player1, profile& player2, std::map<int, char>& emblem_collect
 
 		switch (chosen_option)
 		{
-			case 1: singleplayer_game(player1, player2, emblem_collection, gamemode); return 1;
-			case 2: multiplayer_game(player1, player2, emblem_collection, gamemode); return 2;
+			case 1: singleplayer_game(player1, player2, emblem_collection, gamemode, make_leaderboard()); return 1;
+			case 2: multiplayer_game(player1, player2, emblem_collection, gamemode, make_leaderboard()); return 2;
 			case 3: show_leaderboard(make_leaderboard()); break;
 			case 4: game_information(); break;
 			case 5: std::cout << "Bye,bye!\n"; return 5;
@@ -26,27 +26,62 @@ int menu(profile& player1, profile& player2, std::map<int, char>& emblem_collect
 	}
 }
 
-void singleplayer_game(profile& player, profile& Ai, std::map<int, char>& emblem_collection, int& gamemode)
+void singleplayer_game(profile& player, profile& Ai, std::map<int, char>& emblem_collection, int& gamemode, std::vector<std::pair<std::string, int>> leaderboard)
 {
 	gamemode = gamemode_decision();
 	system("cls");
 	std::cout << "Type your nickname: ";
 	std::cin >> player.profile_name;
+
+	for (auto& score_info : leaderboard)
+	{
+		if (player.profile_name == score_info.first)
+		{
+			player.score = score_info.second;
+			break;
+		}
+	}
+
 	Ai.profile_name = "Computer";
 	random_emblem_for_bot(Ai, emblem_collection, emblem_choice(emblem_collection, player));
 }
 
-void multiplayer_game(profile& player1, profile& player2, std::map<int, char>& emblem_collection, int& gamemode)
+void multiplayer_game(profile& player1, profile& player2, std::map<int, char>& emblem_collection, int& gamemode, std::vector<std::pair<std::string, int>> leaderboard)
 {
 	gamemode = gamemode_decision();
 	system("cls");
 	std::cout << "Type nickname for the first player: ";
 	std::cin >> player1.profile_name;
+	for (auto& score_info : leaderboard)
+	{
+		if (player1.profile_name == score_info.first)
+		{
+			player1.score = score_info.second;
+			break;
+		}
+	}
 	int taken_emblem = emblem_choice(emblem_collection, player1);
 
-	system("cls");
-	std::cout << "Type nickname for the second player: ";
-	std::cin >> player2.profile_name;
+	while (true)
+	{
+		system("cls");
+		std::cout << "Type nickname for the second player: ";
+		std::cin >> player2.profile_name;
+		if (player2.profile_name != player1.profile_name) break;
+
+		system("cls");
+		std::cerr << "This name is already taken. Pls, enter another one.";
+		freeze_screen();
+	}
+	
+	for (auto& score_info : leaderboard)
+	{
+		if (player2.profile_name == score_info.first)
+		{
+			player1.score = score_info.second;
+			break;
+		}
+	}
 
 	while(true)
 	{
@@ -78,15 +113,15 @@ int gamemode_decision()
 	}
 }
 
-void crazy_mode(std::vector<std::vector<char>> board, const int& board_size)
+void crazy_mode(std::vector<std::vector<char>> &board, const int& board_size)
 {
 	int row_number, column_number;
 
-	row_number = AI_move_generator(1, board_size-1);
-	column_number = AI_move_generator(1, board_size-1);
+	row_number = AI_move_generator(0, board_size-1);
+	column_number = AI_move_generator(0, board_size-1);
 	board[row_number][column_number] = ' ';
 	write_board(board, board_size);
-	std::cout << "The field [" << row_number << "][" << column_number << "] was cleared.";
+	std::cout << "The field [" << row_number+1 << "][" << column_number+1 << "] was cleared.";
 	freeze_screen();
 }
 
@@ -207,7 +242,6 @@ void save_score_decision(std::vector<std::pair<std::string, int>> leaderboard,co
 		system("cls");
 		std::cout << "Would you like (the winner) to save/update your score in the high score table?[Y/N]" << std::endl;
 
-		
 		std::cin >> save_score_decision;
 		save_score_decision = toupper(save_score_decision);
 
@@ -222,7 +256,9 @@ void save_score_decision(std::vector<std::pair<std::string, int>> leaderboard,co
 					{
 						winners_data.second = winner.score;
 						if (!save_score(leaderboard)) return;
+						system("cls");
 						std::cout << "The score has been updated\n";
+						freeze_screen();
 						return;
 					}
 				}
@@ -231,7 +267,9 @@ void save_score_decision(std::vector<std::pair<std::string, int>> leaderboard,co
 				std::pair<std::string, int> new_high_score = { winner.profile_name,winner.score };
 				leaderboard.push_back(new_high_score);
 				if (!save_score(leaderboard)) return;
+				system("cls");
 				std::cout << "The score has been saved\n";
+				freeze_screen();
 				return;
 			}
 			case 'N': return;
