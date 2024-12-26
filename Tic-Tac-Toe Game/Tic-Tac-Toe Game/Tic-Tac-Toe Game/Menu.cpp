@@ -31,7 +31,8 @@ void singleplayer_game(profile& player, profile& Ai, std::map<int, char>& emblem
 	gamemode = gamemode_decision();
 	system("cls");
 	std::cout << "Type your nickname: ";
-	std::cin >> player.profile_name;
+	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+	getline(std::cin,player.profile_name);
 
 	for (auto& score_info : leaderboard)
 	{
@@ -51,7 +52,9 @@ void multiplayer_game(profile& player1, profile& player2, std::map<int, char>& e
 	gamemode = gamemode_decision();
 	system("cls");
 	std::cout << "Type nickname for the first player: ";
-	std::cin >> player1.profile_name;
+	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+	getline(std::cin, player1.profile_name);
+
 	for (auto& score_info : leaderboard)
 	{
 		if (player1.profile_name == score_info.first)
@@ -66,7 +69,9 @@ void multiplayer_game(profile& player1, profile& player2, std::map<int, char>& e
 	{
 		system("cls");
 		std::cout << "Type nickname for the second player: ";
-		std::cin >> player2.profile_name;
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+		getline(std::cin, player2.profile_name);
+
 		if (player2.profile_name != player1.profile_name) break;
 
 		system("cls");
@@ -206,13 +211,15 @@ std::vector<std::pair<std::string,int>> make_leaderboard()
 		//clearing the first line
 		getline(scores_file, scores_data_buffer);
 
+		
 		while (getline(scores_file, scores_data_buffer))
 		{
-			std::stringstream score_data(scores_data_buffer);
 			std::pair<std::string, int> score;
-			std::string punctuation_marks;
+			score.first = scores_data_buffer.substr(0, scores_data_buffer.find('-')-1); //-1 for the '-' char
 
-			score_data >> score.first >> punctuation_marks >> score.second;
+			std::stringstream score_data(scores_data_buffer.substr(scores_data_buffer.find('-')+1));
+
+			score_data >> score.second;
 			leaderboard.push_back(score);
 		}
 		scores_file.close();
@@ -229,7 +236,6 @@ std::vector<std::pair<std::string,int>> make_leaderboard()
 				}
 			}
 		}
-
 		return leaderboard;	
 }
 
