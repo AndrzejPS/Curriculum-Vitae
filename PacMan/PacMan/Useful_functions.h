@@ -1,5 +1,5 @@
 #pragma once
 #include <string>
 
-void freeze_screen(const std::string& error_message);
+void freeze_screen();
 bool validate_int(int& input);

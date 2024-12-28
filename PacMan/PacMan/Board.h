@@ -1,6 +1,14 @@
 #pragma once
 #include "Useful_functions.h"
+#include <iostream>
+#include <vector>
 
-int choose_board_size();
-//void create_board();
+struct BoardParameters
+{
+	int rows_number, columns_number;
+};
+
+BoardParameters choose_board_size(BoardParameters &board_size);
+std::vector<std::vector<char>> create_board(const BoardParameters& board_size);
+void draw_board(const std::vector<std::vector<char>> board);
 

@@ -3,8 +3,8 @@
 
 int main()
 {
-	int x = choose_board_size();
-	std::cout << x;
+	BoardParameters board_size;
+	draw_board(create_board(choose_board_size(board_size)));
 }
 
 
