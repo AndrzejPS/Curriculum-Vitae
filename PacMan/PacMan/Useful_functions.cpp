@@ -1,5 +1,4 @@
 #include "Useful_functions.h"
-#include <iostream>
 
 void freeze_screen()
 {
@@ -17,4 +16,13 @@ bool validate_int(int& input)
 	std::cerr << "You entered the wrong data type! Try again.";
 	std::cin.get();
 	return false;
+}
+
+int generateRandomInt(int low, int high)
+{
+	static std::default_random_engine re{ std::random_device{}() };
+
+	using Dist = std::uniform_int_distribution<int>;
+	static Dist uid{};
+	return uid(re, Dist::param_type{ low,high });
 }

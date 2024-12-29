@@ -33,9 +33,9 @@ std::vector<std::vector<char>> create_board(const BoardParameters& board_size)
 
 	for (int i = 0; i < board.size(); i++)
 	{
-		for (int j = 0; j < board.size(); j++)
+		for (int j = 0; j < board[0].size(); j++)
 		{
-			if (i == 0 || i == board.size() - 1 || j == 0 || j == board.size() - 1)
+			if (i == 0 || i == board.size() - 1 || j == 0 || j == board[0].size() - 1)
 			{
 				board[i][j] = '#';
 			}
