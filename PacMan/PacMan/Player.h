@@ -1,9 +1,14 @@
 #pragma once
+#include "Board.h"
 #include <vector>
+#include <conio.h>
 
 struct PlayerProfile
 {
 	int coordinate_x, coordinate_y;
 };
 
-void spawn_player();
+void spawnPlayer(std::vector<std::vector<char>>& board, const BoardParameters& board_size, PlayerProfile& player);
+char getPlayerMovement();
+void checkMovementResult(std::vector<std::vector<char>>& board, PlayerProfile& player, int distance_x, int distance_y);
+void movePlayer(std::vector<std::vector<char>>& board, PlayerProfile& player, char move);
