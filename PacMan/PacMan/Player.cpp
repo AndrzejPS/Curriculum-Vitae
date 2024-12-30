@@ -4,6 +4,7 @@
 #include "Board.h"
 #include <conio.h>
 
+
 void spawnPlayer(std::vector<std::vector<char>>& board, const BoardParameters &board_size, PlayerProfile& player)
 {
 	//1 and -2 to make sure the player won't be spawned on the eadges of the board
@@ -37,12 +38,20 @@ void checkMovementResult(std::vector<std::vector<char>>& board, PlayerProfile& p
 	{
 		//getting a point
 		if (board[player.coordinate_x + distance_x][player.coordinate_y + distance_y] == '*')
+		{
+			addPointToPlayer(player.score);
 			board[player.coordinate_x + distance_x][player.coordinate_y + distance_y] = ' ';
-
+		}
+			
 		std::swap(board[player.coordinate_x][player.coordinate_y], board[player.coordinate_x + distance_x][player.coordinate_y + distance_y]);
 
 		player.coordinate_x = player.coordinate_x + distance_x;
 		player.coordinate_y = player.coordinate_y + distance_y;
+		
 	}
 }
 
+void addPointToPlayer(int& score)
+{
+	score++;
+}

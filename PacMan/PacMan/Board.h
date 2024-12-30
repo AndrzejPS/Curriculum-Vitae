@@ -3,7 +3,7 @@
 
 struct BoardParameters
 {
-	int rows_number, columns_number;
+	int rows_number=0, columns_number=0;
 };
 
 BoardParameters choose_board_size(BoardParameters &board_size);
