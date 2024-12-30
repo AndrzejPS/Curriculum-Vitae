@@ -1,4 +1,7 @@
 #include "Useful_functions.h"
+#include <string>
+#include <iostream>
+#include <random>
 
 void freeze_screen()
 {
@@ -10,7 +13,7 @@ bool validate_int(int& input)
 {
 	if (!std::cin.fail()) return true;
 
-	system("cls");
+	std::cout << "\033[H\033[J";
 	std::cin.clear();
 	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 	std::cerr << "You entered the wrong data type! Try again.";

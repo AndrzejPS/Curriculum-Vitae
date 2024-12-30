@@ -1,6 +1,8 @@
 #include "PLayer.h"
 #include "Useful_functions.h"
+#include <iostream>
 #include "Board.h"
+#include <conio.h>
 
 void spawnPlayer(std::vector<std::vector<char>>& board, const BoardParameters &board_size, PlayerProfile& player)
 {

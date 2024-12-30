@@ -1,11 +1,12 @@
 #include "Board.h"
-
+#include "Useful_functions.h"
+#include <iostream>
 
 BoardParameters choose_board_size(BoardParameters &board_size)
 {
 	while (true)
 	{
-		system("cls");
+		std::cout << "\033[H\033[J";
 		std::cout << "Choose the board size (numbers of rows and columns, both greater than 4).\nNumber of rows: ";
 		std::cin >> board_size.rows_number;
 		std::cout << "Number of columns: ";
@@ -16,7 +17,7 @@ BoardParameters choose_board_size(BoardParameters &board_size)
 		
 		if (board_size.rows_number> 4 && board_size.columns_number >4) return board_size;
 
-		system("cls");
+		std::cout << "\033[H\033[J";
 		std::cerr << "The parameters of the board must be greater than 4!";
 		freeze_screen();
 	}

@@ -1,6 +1,6 @@
 ﻿#include "Board.h"
 #include "PLayer.h"
-
+#include <conio.h>
 #include <iostream>
 
 int main()
@@ -11,10 +11,9 @@ int main()
 	spawnPlayer(board, board_size, p1);
 	while (true)
 	{
-		system("cls");
+		std::cout << "\033[H\033[J";
 		draw_board(board);
 		movePlayer(board, p1, getPlayerMovement());
-		
 	}
 	
 }

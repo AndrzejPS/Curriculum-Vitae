@@ -1,7 +1,5 @@
 #pragma once
 #include "Board.h"
-#include <vector>
-#include <conio.h>
 
 struct PlayerProfile
 {

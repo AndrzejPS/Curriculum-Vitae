@@ -1,6 +1,4 @@
 #pragma once
-#include "Useful_functions.h"
-#include <iostream>
 #include <vector>
 
 struct BoardParameters
