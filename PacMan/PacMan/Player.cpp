@@ -36,18 +36,17 @@ void checkMovementResult(std::vector<std::vector<char>>& board, PlayerProfile& p
 {
 	if (board[player.coordinate_x + distance_x][player.coordinate_y + distance_y] != '#')
 	{
-		//getting a point
+		//getting a point by a player
 		if (board[player.coordinate_x + distance_x][player.coordinate_y + distance_y] == '*')
 		{
 			addPointToPlayer(player.score);
 			board[player.coordinate_x + distance_x][player.coordinate_y + distance_y] = ' ';
 		}
-			
+
 		std::swap(board[player.coordinate_x][player.coordinate_y], board[player.coordinate_x + distance_x][player.coordinate_y + distance_y]);
 
 		player.coordinate_x = player.coordinate_x + distance_x;
 		player.coordinate_y = player.coordinate_y + distance_y;
-		
 	}
 }
 

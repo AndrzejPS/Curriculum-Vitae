@@ -16,8 +16,12 @@ int main()
 		draw_board(board);
 		std::cout << "\nScore: " << p1.score << "/" << (board_sizes.rows_number-2)*(board_sizes.columns_number-2) - 1; //-2 to include all spaces without board eadges, -1 bc one space is a player spawn pool
 		movePlayer(board, p1, getPlayerMovement());
-		if (chechWinCondtition(p1.score, (board_sizes.rows_number - 2) * (board_sizes.columns_number - 2) - 1)) break;
+		draw_board(board);
+		if (chechWinCondtition(p1.score, (board_sizes.rows_number - 2) * (board_sizes.columns_number - 2))) break;
 	}
+
+	std::cout << "\033[H\033[J";
+	draw_board(board);
 	
 }
 
