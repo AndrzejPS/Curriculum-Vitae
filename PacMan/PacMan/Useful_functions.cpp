@@ -3,13 +3,13 @@
 #include <iostream>
 #include <random>
 
-void freeze_screen()
+void freezeScreen()
 {
 	std::cin.get();
 	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 }
 
-bool validate_int(int& input)
+bool validateInt(int& input)
 {
 	if (!std::cin.fail()) return true;
 

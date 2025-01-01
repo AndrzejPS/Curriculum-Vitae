@@ -1,5 +1,5 @@
 #pragma once
 
-void freeze_screen();
-bool validate_int(int& input);
+void freezeScreen();
+bool validateInt(int& input);
 int generateRandomInt(int low, int high);

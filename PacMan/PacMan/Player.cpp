@@ -7,10 +7,18 @@
 
 void spawnPlayer(std::vector<std::vector<char>>& board, const BoardParameters &board_size, PlayerProfile& player)
 {
-	//1 and -2 to make sure the player won't be spawned on the eadges of the board
-	player.coordinate_x = generateRandomInt(1, board_size.rows_number-2);
-	player.coordinate_y = generateRandomInt(1, board_size.columns_number - 2);
-	board[player.coordinate_x][player.coordinate_y] = 'C';
+	while (true)
+	{
+		//1 and -1 to make sure the player won't be spawned on the eadges of the board or on obstacles
+		player.coordinate_x = generateRandomInt(1, board_size.rows_number - 1);
+		player.coordinate_y = generateRandomInt(1, board_size.columns_number - 1);
+		if (board[player.coordinate_x][player.coordinate_y] != '#')
+		{
+			board[player.coordinate_x][player.coordinate_y] = 'C';
+			break;
+		}
+	}
+	
 }
 
 char getPlayerMovement()
