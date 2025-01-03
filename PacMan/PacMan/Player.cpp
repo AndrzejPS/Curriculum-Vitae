@@ -28,24 +28,25 @@ char getPlayerMovement()
 	return move;
 }
 
-void movePlayer(std::vector<std::vector<char>>& board, PlayerProfile& player, char move)
+void movePlayer(std::vector<std::vector<char>>& board, PlayerProfile& player, char move, const BoardParameters& board_symbols)
 {
 	switch (move)
 	{
-	case 'w': checkMovementResult(board, player, -1, 0); break; //up
-	case 'a': checkMovementResult(board, player, 0, -1); break; //left
-	case 's': checkMovementResult(board, player, 1, 0);  break; //down
-	case 'd': checkMovementResult(board, player, 0, 1);  break; //right
+	case 'w': checkMovementResult(board, player, -1, 0, board_symbols); break; //up
+	case 'a': checkMovementResult(board, player, 0, -1, board_symbols); break; //left
+	case 's': checkMovementResult(board, player, 1, 0,  board_symbols);  break; //down
+	case 'd': checkMovementResult(board, player, 0, 1,  board_symbols);  break; //right
 	default:;
 	}
 }
 
-void checkMovementResult(std::vector<std::vector<char>>& board, PlayerProfile& player, int distance_x,int distance_y)
+void checkMovementResult(std::vector<std::vector<char>>& board, PlayerProfile& player, int distance_x,int distance_y, const BoardParameters& board_symbols)
 {
-	if (board[player.coordinate_x + distance_x][player.coordinate_y + distance_y] != '#')
+	//check if field is taken by a wall or an obstacle symbols
+	if (board[player.coordinate_x + distance_x][player.coordinate_y + distance_y] != board_symbols.building_elements[0] && board[player.coordinate_x + distance_x][player.coordinate_y + distance_y] != board_symbols.building_elements[1]) 
 	{
 		//getting a point by a player
-		if (board[player.coordinate_x + distance_x][player.coordinate_y + distance_y] == '*')
+		if (board[player.coordinate_x + distance_x][player.coordinate_y + distance_y] == board_symbols.building_elements[2]) //point symbol
 		{
 			addPointToPlayer(player.score);
 			board[player.coordinate_x + distance_x][player.coordinate_y + distance_y] = ' ';

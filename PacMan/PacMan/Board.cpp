@@ -23,26 +23,27 @@ BoardParameters chooseBoardSize(BoardParameters &board_size)
 	}
 }
 
-std::vector<std::vector<char>> createBoard(const BoardParameters& board_size)
+std::vector<std::vector<char>> createBoard(const BoardParameters& board_sizes)
 {
-	std::vector<std::vector<char>> board(board_size.rows_number+2); //+2 to make board eages
+	std::vector<std::vector<char>> board(board_sizes.rows_number+2); //+2 to make board eages
 
 	for (std::vector<char> &row : board)
 	{
-		row.resize(board_size.columns_number+2);
+		row.resize(board_sizes.columns_number+2);
 	}
 
+	//create map with walls and points
 	for (int i = 0; i < board.size(); i++)
 	{
 		for (int j = 0; j < board[0].size(); j++)
 		{
 			if (i == 0 || i == board.size() - 1 || j == 0 || j == board[0].size() - 1)
 			{
-				board[i][j] = '#';
+				board[i][j] = board_sizes.building_elements[0]; //wall symbol
 			}
 			else
 			{
-				board[i][j] = '*';
+				board[i][j] = board_sizes.building_elements[2]; // point symbol
 			}
 		}
 	}
@@ -51,25 +52,22 @@ std::vector<std::vector<char>> createBoard(const BoardParameters& board_size)
 
 void generateObstacle(BoardParameters &board_sizes, std::vector<std::vector<char>>&board)
 {
-	int fields_number = board_sizes.board_surface_area, temp_variable = 7;
+	int fields_number = board_sizes.board_surface_area, obstacle_number = std::ceil((double) fields_number/10.0);
 
-	while (fields_number > temp_variable)
+	while (obstacle_number-- > 0)
 	{
 		//create a new obstacle
 		while (true)
 		{
 			int x = generateRandomInt(1, board_sizes.rows_number - 1);
 			int y = generateRandomInt(1, board_sizes.columns_number - 1);
-			if (board[x][y] != '#')
+			if (board[x][y] != board_sizes.building_elements[1]) //obstacle symbol
 			{
-				board[x][y] = '#';
+				board[x][y] = board_sizes.building_elements[1];  
 				break;
 			}
 		}
 		board_sizes.number_of_obstacles++;
-
-		fields_number -= temp_variable;
-		temp_variable += 2;
 	}
 } 
 

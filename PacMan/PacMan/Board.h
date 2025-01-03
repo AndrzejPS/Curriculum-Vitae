@@ -6,6 +6,8 @@ struct BoardParameters
 	int rows_number = 0, columns_number = 0;
 	int number_of_obstacles = 0;
 	int board_surface_area = 0;
+
+	const char building_elements[3] = { '#','O','*'}; // wall, obstacle, point symbols
 };
 
 BoardParameters chooseBoardSize(BoardParameters &board_size);
