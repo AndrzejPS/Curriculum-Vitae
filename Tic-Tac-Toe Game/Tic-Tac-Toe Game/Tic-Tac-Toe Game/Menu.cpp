@@ -300,7 +300,5 @@ bool save_score(std::vector<std::pair<std::string, int>>& leaderboard)
 		score_file << winners_data.first << " - " << winners_data.second << '\n';
 	}
 	return true;
-
-	score_file.close();
 }
 

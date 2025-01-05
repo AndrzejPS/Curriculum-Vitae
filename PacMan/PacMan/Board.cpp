@@ -25,12 +25,7 @@ BoardParameters chooseBoardSize(BoardParameters &board_size)
 
 std::vector<std::vector<char>> createBoard(const BoardParameters& board_sizes)
 {
-	std::vector<std::vector<char>> board(board_sizes.rows_number+2); //+2 to make board eages
-
-	for (std::vector<char> &row : board)
-	{
-		row.resize(board_sizes.columns_number+2);
-	}
+	std::vector<std::vector<char>> board(board_sizes.rows_number+2, std::vector<char> (board_sizes.columns_number+2, board_sizes.building_elements[2])); //+2 to make board eages, all filled with point symbol
 
 	//create map with walls and points
 	for (int i = 0; i < board.size(); i++)
@@ -40,10 +35,6 @@ std::vector<std::vector<char>> createBoard(const BoardParameters& board_sizes)
 			if (i == 0 || i == board.size() - 1 || j == 0 || j == board[0].size() - 1)
 			{
 				board[i][j] = board_sizes.building_elements[0]; //wall symbol
-			}
-			else
-			{
-				board[i][j] = board_sizes.building_elements[2]; // point symbol
 			}
 		}
 	}
