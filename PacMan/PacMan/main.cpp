@@ -25,7 +25,7 @@ int main()
 		std::cout <<"\nTime: "; showInGameTime(start_of_game); std::cout << '\n';
 		if (_kbhit()) movePlayer(board, p1, getPlayerMovement(), board_sizes);
 		if (chechWinCondtition(p1.score, board_sizes.board_surface_area, board_sizes.number_of_obstacles)) break; // -1 bc one space is a player spawn pool
-		std::this_thread::sleep_for(std::chrono::milliseconds(1));
+		std::this_thread::sleep_for(std::chrono::milliseconds(10));
 	}
 
 	std::cout << "\033[H\033[J";
