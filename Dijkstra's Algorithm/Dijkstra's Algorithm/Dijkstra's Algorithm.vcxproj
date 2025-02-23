@@ -127,7 +127,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Dijkstra%27s Algorithm.cpp" />
+    <ClCompile Include="Data Handling.cpp" />
+    <ClCompile Include="Dijsktra%27s Algorithm.cpp" />
+    <ClCompile Include="main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Data Handling.h" />
+    <ClInclude Include="Dijkstra%27s Algorithm.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
