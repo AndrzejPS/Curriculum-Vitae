@@ -1,6 +1,17 @@
 #include "Data Handling.h"
-#include <iterator>
-#include <algorithm>
+
+std::unordered_map<int, connections> saveVertexConnections(const std::vector<Line_segment>& graph)
+{
+	std::unordered_map<int, connections> vertex_connections;
+
+	for (const Line_segment& segment : graph)
+	{
+		//where the vertex is leading to and how long the path is
+		vertex_connections[segment.starting_vertex].push_back({ segment.ending_vertex, segment.distance });
+	}
+
+	return vertex_connections;
+}
 
 std::unordered_set<int> getAllVerticesInGraph(const std::vector<Line_segment>& graph)
 {
@@ -19,15 +30,26 @@ std::unordered_map<int, double> prepareContainerForAlgorithm(const std::unordere
 {
 	std::unordered_map<int, double> vertices_with_distances;
 
-	auto map_element = [](const int& vertix)
-		{
-			return std::make_pair(vertix, std::numeric_limits<double>::infinity());
-		};
-
-	std::transform(all_vertices.begin(), all_vertices.end(), std::inserter(vertices_with_distances, vertices_with_distances.begin()), map_element);
+	//at first all vertices have an infinite distance exept the starting spot
+	for (const int& vertex : all_vertices)
+	{
+		vertices_with_distances[vertex] = std::numeric_limits<double>::infinity();
+	}
 
 	//starting spot for all possible paths in the graph
 	vertices_with_distances[starting_spot] = 0.0;
 
 	return vertices_with_distances;
+}
+
+std::unordered_map<int, bool> makeListOfVisitedVertices(const std::unordered_set<int>& all_vertices)
+{
+	std::unordered_map<int, bool> visited_vertices;
+
+	for (const int& vertex : all_vertices)
+	{
+		visited_vertices[vertex];
+	}
+
+	return visited_vertices;
 }
