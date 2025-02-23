@@ -128,7 +128,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Data Handling.cpp" />
-    <ClCompile Include="Dijsktra%27s Algorithm.cpp" />
+    <ClCompile Include="Dijkstra%27s Algorithm.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>

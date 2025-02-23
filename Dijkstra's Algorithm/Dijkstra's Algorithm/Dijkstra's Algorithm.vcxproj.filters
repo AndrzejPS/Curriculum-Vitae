@@ -18,7 +18,7 @@
     <ClCompile Include="main.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
-    <ClCompile Include="Dijsktra%27s Algorithm.cpp">
+    <ClCompile Include="Dijkstra%27s Algorithm.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
     <ClCompile Include="Data Handling.cpp">
