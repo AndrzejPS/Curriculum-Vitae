@@ -26,7 +26,7 @@ std::unordered_set<int> getAllVerticesInGraph(const std::vector<Line_segment>& g
 	return verteces;
 }
 
-std::unordered_map<int, double> prepareContainerForAlgorithm(const std::unordered_set<int> all_vertices, const int& starting_spot)
+std::unordered_map<int, double> prepareContainerForResults(const std::unordered_set<int> all_vertices, const int& starting_spot)
 {
 	std::unordered_map<int, double> vertices_with_distances;
 

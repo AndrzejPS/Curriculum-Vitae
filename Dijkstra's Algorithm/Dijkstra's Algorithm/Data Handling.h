@@ -14,5 +14,5 @@ struct Line_segment
 
 std::unordered_map<int, connections> saveVertexConnections(const std::vector<Line_segment>& graph);
 std::unordered_set<int> getAllVerticesInGraph(const std::vector<Line_segment>& graph);
-std::unordered_map<int, double> prepareContainerForAlgorithm(const std::unordered_set<int> all_vertices, const int& starting_spot);
+std::unordered_map<int, double> prepareContainerForResults(const std::unordered_set<int> all_vertices, const int& starting_spot);
 std::unordered_map<int, bool> makeListOfVisitedVertices(const std::unordered_set<int>& all_vertices);

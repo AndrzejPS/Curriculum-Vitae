@@ -8,6 +8,9 @@ void DijkstrasAlgorithm(const int& starting_spot, const std::unordered_map<int, 
 	//container with remaining vertices to check; connection -> std::vector<std::pair<int,double>>
 	connections next_spots;
 
+	//if a vertex doesn't lead to any other vertices the case is skipped
+	if (vertex_connections.find(starting_spot) == vertex_connections.end()) return;
+
 	for (const std::pair<int, double>& connection : vertex_connections.at(starting_spot))
 	{
 		double new_distance = connection.second + shortest_paths[starting_spot];
