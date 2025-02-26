@@ -19,17 +19,24 @@ int main()
         {4,3,1}
     };
 
-    int starting_spot = 2;
+    int starting_spot = 0;
     std::unordered_map<int, connections> vertex_connections = saveVertexConnections(graph);
     std::unordered_set<int> all_vertices = getAllVerticesInGraph(graph);
-    std::unordered_map<int, double> results = prepareContainerForResults(all_vertices, starting_spot);
+    std::unordered_map<int, double> shortest_distances = prepareContainerForResults(all_vertices, starting_spot);
     std::unordered_map<int, bool> visited_vertices = makeListOfVisitedVertices(all_vertices);
+    std::vector<std::vector<int>> shortest_paths;
 
-    DijkstrasAlgorithm(starting_spot, vertex_connections, results, visited_vertices);
+    DijkstrasAlgorithm(starting_spot, vertex_connections, shortest_distances, visited_vertices,{}, shortest_paths);
 
-    for (const std::pair<int, double>& value : results)
+    std::reverse(shortest_paths.begin(), shortest_paths.end());
+    for (const std::vector<int>& paths : shortest_paths)
     {
-        std::cout << value.first << " " << value.second << std::endl;
+        for (const int& path : paths)
+        {
+            if (path == paths.back()) std::cout << path << " : ";
+            else std::cout << path << " -> ";
+        }
+        std::cout << shortest_distances[paths.back()] << std::endl;
     }
 }
 
