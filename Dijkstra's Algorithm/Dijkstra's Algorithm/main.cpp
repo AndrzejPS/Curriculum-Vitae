@@ -26,17 +26,18 @@ int main()
     std::unordered_map<int, bool> visited_vertices = makeListOfVisitedVertices(all_vertices);
     std::vector<std::vector<int>> shortest_paths;
 
-    DijkstrasAlgorithm(starting_spot, vertex_connections, shortest_distances, visited_vertices,{}, shortest_paths);
-
-    std::reverse(shortest_paths.begin(), shortest_paths.end());
-    for (const std::vector<int>& paths : shortest_paths)
+    //checks if the starting spot is connected with the graph
+    if (vertex_connections.find(starting_spot) == vertex_connections.end())
     {
-        for (const int& path : paths)
-        {
-            if (path == paths.back()) std::cout << path << " : ";
-            else std::cout << path << " -> ";
-        }
-        std::cout << shortest_distances[paths.back()] << std::endl;
+        std::cout << "The starting spot is not connected with the graph";
     }
+    else
+    {
+        DijkstrasAlgorithm(starting_spot, vertex_connections, shortest_distances, visited_vertices, {}, shortest_paths);
+
+        std::reverse(shortest_paths.begin(), shortest_paths.end());
+        writeAnswers(shortest_paths, shortest_distances);
+    }
+   
 }
 

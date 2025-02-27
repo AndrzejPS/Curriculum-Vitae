@@ -1,4 +1,5 @@
 #include "Data Handling.h"
+#include <iostream>
 
 std::unordered_map<int, connections> saveVertexConnections(const std::vector<Line_segment>& graph)
 {
@@ -52,4 +53,17 @@ std::unordered_map<int, bool> makeListOfVisitedVertices(const std::unordered_set
 	}
 
 	return visited_vertices;
+}
+
+void writeAnswers(const std::vector<std::vector<int>>& paths, const std::unordered_map<int, double>& distances)
+{
+	for (const std::vector<int>& path : paths)
+	{
+		for (const int& vertex : path)
+		{
+			if (vertex == path.back()) std::cout << vertex << " : ";
+			else std::cout << vertex << " -> ";
+		}
+		std::cout << distances.at(path.back()) << std::endl;
+	}
 }
