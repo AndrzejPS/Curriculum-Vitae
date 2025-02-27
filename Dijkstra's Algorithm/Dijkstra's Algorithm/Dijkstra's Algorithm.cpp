@@ -5,6 +5,7 @@ void DijkstrasAlgorithm(const int& starting_spot, const std::unordered_map<int, 
 {
 	visited_places[starting_spot] = true;
 	temporary_container.push_back(starting_spot);
+
 	//if a vertex doesn't lead to any other vertices the case is skipped
 	if (vertex_connections.find(starting_spot) == vertex_connections.end()) { shortest_paths.push_back(temporary_container);  return; }
 

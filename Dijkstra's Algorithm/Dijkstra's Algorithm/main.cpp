@@ -6,20 +6,14 @@ int main()
 {
     std::vector< Line_segment> graph =
     {
-        {0,1,4.5},
-        {0,2,2.31},
-        {1,0,6.7},
-        {1,2,3},
-        {1,3,2},
-        {1,4,3},
-        {2,1,1.12},
-        {2,3,4},
-        {2,4,5},
-        {3,7,12.18},
-        {4,3,1}
+        /*type your graph here with this pattern:
+           split you graph into line segments and type each one consecutively,
+           write int the brackets: {starting vertex, ending vertex, distance between them},
+           eg. the line segment - {10,14,13.4} - means that there is a path from the vertex number 10 to the vertex number 14 and the path is 13.4 units long.
+        */
     };
 
-    int starting_spot = 0;
+    int starting_spot = 16;
     std::unordered_map<int, connections> vertex_connections = saveVertexConnections(graph);
     std::unordered_set<int> all_vertices = getAllVerticesInGraph(graph);
     std::unordered_map<int, double> shortest_distances = prepareContainerForResults(all_vertices, starting_spot);
@@ -29,7 +23,7 @@ int main()
     //checks if the starting spot is connected with the graph
     if (vertex_connections.find(starting_spot) == vertex_connections.end())
     {
-        std::cout << "The starting spot is not connected with the graph";
+        std::cout << "The starting spot is not connected with the graph!";
     }
     else
     {

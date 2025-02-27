@@ -57,6 +57,7 @@ std::unordered_map<int, bool> makeListOfVisitedVertices(const std::unordered_set
 
 void writeAnswers(const std::vector<std::vector<int>>& paths, const std::unordered_map<int, double>& distances)
 {
+
 	for (const std::vector<int>& path : paths)
 	{
 		for (const int& vertex : path)
