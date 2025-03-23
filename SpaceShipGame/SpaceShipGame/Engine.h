@@ -11,10 +11,11 @@ class Engine
 	sf::RenderWindow* game_window;
 
 	//wallpaper
-	Wallpaper background;
+	Wallpaper* background;
 
 	//private functions
 	void initVariables();
+	void initBackground(const sf::RenderTarget& target);
 	void checkEvents();
 
 	public:

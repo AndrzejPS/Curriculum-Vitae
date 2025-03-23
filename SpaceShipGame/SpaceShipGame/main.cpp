@@ -1,4 +1,6 @@
 ﻿#include "Engine.h"
+#include <iostream>
+#include <SFML/Graphics.hpp>
 
 int main()
 {
@@ -6,8 +8,9 @@ int main()
 
 	while (game.checkRunningCondition())
 	{
-
+		
 		game.renderGame();
+
 	}
 
 }

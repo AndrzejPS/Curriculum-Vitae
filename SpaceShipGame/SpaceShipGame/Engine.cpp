@@ -11,6 +11,11 @@ void Engine::initVariables()
 	//
 }
 
+void Engine::initBackground(const sf::RenderTarget& target)
+{
+	this->background = new Wallpaper(target);
+}
+
 void Engine::checkEvents()
 {
 	while (const std::optional event = this->game_window->pollEvent())
@@ -18,7 +23,7 @@ void Engine::checkEvents()
 		if (event->is<sf::Event::Closed>())
 		{
 			this->game_window->close();
-			std::cout << "Zamkniecie";
+			
 		}
 	}
 }
@@ -27,11 +32,13 @@ void Engine::checkEvents()
 Engine::Engine()
 {
 	this->initVariables();
+	this->initBackground(*this->game_window);
 }
 
 Engine::~Engine()
 {
 	delete this->game_window;
+	delete this->background;
 }
 
 //public methods
@@ -47,13 +54,13 @@ void Engine::updateGame()
 
 void Engine::renderGame()
 {
-	//clear
-	this->game_window->clear(sf::Color::Black);
-
 	this->updateGame();
 
+	//clear
+	this->game_window->clear();
+
 	//draw
-	//this->background.drawWallpaper(this->game_window);
+	this->background->drawWallpaper(*this->game_window);
 
 	//render
 	this->game_window->display();
