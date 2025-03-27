@@ -84,6 +84,8 @@ void Player::moveSpaceShip(const sf::RenderTarget& target)
 		if (fire_delay == 0)
 		{
 			this->bullets.emplace_back(std::make_unique<Missile>(this->spaceship_sprite->getPosition().x, this->spaceship_sprite->getPosition().y));
+			this->bullets.emplace_back(std::make_unique<Missile>(this->spaceship_sprite->getPosition().x, this->spaceship_sprite->getPosition().y, -45.0));
+			this->bullets.emplace_back(std::make_unique<Missile>(this->spaceship_sprite->getPosition().x, this->spaceship_sprite->getPosition().y,45.0));
 			fire_delay = 20;
 		}
 		else fire_delay--;
@@ -97,6 +99,6 @@ void Player::updateBullets(const sf::RenderTarget& target)
 	for (int i = bullets.size() - 1; i >= 0; i--)
 	{
 		if (bullets[i]->getMissilePosition().second + bullets[i]->getMissileSize().second < 0.f) bullets.erase(bullets.begin() + i);
-		else bullets[i]->moveMissle();
+		else bullets[i]->moveMissle(bullets[i]->getRotationDegree());
 	}
 }

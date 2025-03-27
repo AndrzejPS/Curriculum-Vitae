@@ -2,9 +2,10 @@
 #include <iostream>
 
 
-void Missile::initVariables()
+void Missile::initVariables(const float& degrees)
 {
 	this->missile_speed = 4.f;
+	this->rotation_degree = degrees;
 }
 
 sf::Texture Missile::missile_texture;
@@ -22,15 +23,16 @@ void Missile::initMissileAppearance(const float& spaceship_origin_x, const float
 	}
 
 	this->missile_sprite = new sf::Sprite(this->missile_texture);
-	this->missile_sprite->setOrigin({ this->missile_texture.getSize().x / 2.f, this->missile_texture.getSize().x / 2.f });
+	this->missile_sprite->setOrigin({ this->missile_texture.getSize().x / 2.f, static_cast<float>(this->missile_texture.getSize().y)});
 	this->missile_sprite->setScale({ 0.3f,0.3f });
 	this->missile_sprite->setPosition({ spaceship_origin_x , spaceship_origin_y });
+	this->missile_sprite->rotate(sf::degrees(this->rotation_degree));
 }
 
 //constructor & destructor
-Missile::Missile(const float& spaceship_origin_x, const float& spaceship_origin_y)
+Missile::Missile(const float& spaceship_origin_x, const float& spaceship_origin_y,const float& degrees)
 {
-	this->initVariables();
+	this->initVariables(degrees);
 	this->initMissileAppearance(spaceship_origin_x, spaceship_origin_y);
 }
 
@@ -50,9 +52,17 @@ std::pair<float, float> Missile::getMissileSize()
 	return std::pair<float, float>(this->missile_sprite->getGlobalBounds().size.x, this->missile_sprite->getGlobalBounds().size.y);
 }
 
-void Missile::moveMissle()
+const float& Missile::getRotationDegree()
 {
-	this->missile_sprite->move({ 0.f,-this->missile_speed });
+	return this->rotation_degree;
+}
+
+void Missile::moveMissle(const float& degrees)
+{
+	if(degrees == -45.f) this->missile_sprite->move({ -this->missile_speed,-this->missile_speed });
+	else if (degrees == 45.f) this->missile_sprite->move({ this->missile_speed,-this->missile_speed });
+	else this->missile_sprite->move({ 0.f,-this->missile_speed });
+	
 }
 
 void Missile::drawMissile(sf::RenderTarget& target)
