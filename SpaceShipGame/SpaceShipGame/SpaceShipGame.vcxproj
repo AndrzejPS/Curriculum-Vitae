@@ -137,12 +137,14 @@
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Missile.cpp" />
+    <ClCompile Include="Obstacles.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Wallpaper.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h" />
     <ClInclude Include="Missile.h" />
+    <ClInclude Include="Obstacles.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Wallpaper.h" />
   </ItemGroup>

@@ -4,7 +4,7 @@
 
 void Missile::initVariables(const float& degrees)
 {
-	this->missile_speed = 4.f;
+	this->missile_speed = 6.f;
 	this->rotation_degree = degrees;
 }
 
@@ -59,10 +59,13 @@ const float& Missile::getRotationDegree()
 
 void Missile::moveMissle(const float& degrees)
 {
-	if(degrees == -45.f) this->missile_sprite->move({ -this->missile_speed,-this->missile_speed });
-	else if (degrees == 45.f) this->missile_sprite->move({ this->missile_speed,-this->missile_speed });
-	else this->missile_sprite->move({ 0.f,-this->missile_speed });
-	
+	switch (static_cast<int>(degrees))
+	{
+	case 45: this->missile_sprite->move({ this->missile_speed,-this->missile_speed }); break;
+	case -45: this->missile_sprite->move({ -this->missile_speed,-this->missile_speed }); break;
+	case 0:
+	default: this->missile_sprite->move({ 0.f,-this->missile_speed });
+	}
 }
 
 void Missile::drawMissile(sf::RenderTarget& target)

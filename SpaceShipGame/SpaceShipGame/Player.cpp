@@ -7,7 +7,7 @@ void Player::initVariables()
 {
 	//player's stats
 	this->health = 3;
-	this->spaceship_speed = 6.f;
+	this->spaceship_speed = 5.f;
 }
 
 //player's appearance
@@ -22,7 +22,7 @@ void Player::initPlayersAppearance(const sf::RenderTarget& target)
 	//spaceship sprite
 	this->spaceship_sprite = new sf::Sprite(this->spaceship_texture);
 	this->spaceship_sprite->setOrigin({ this->spaceship_texture.getSize().x / 2.f,this->spaceship_texture.getSize().y / 2.f });
-	this->spaceship_sprite->setScale({ 0.2f,0.2f });
+	this->spaceship_sprite->setScale({ 0.15f,0.15f });
 
 	this->spaceship_sprite_half_x = this->spaceship_sprite->getGlobalBounds().size.x / 2.f;
 	this->spaceship_sprite_half_y = this->spaceship_sprite->getGlobalBounds().size.y / 2.f;

@@ -1,5 +1,6 @@
 #pragma once 
 #include <SFML/Graphics.hpp>
+#include <random>
 #include "Wallpaper.h"
 #include "Player.h"
 
@@ -34,3 +35,5 @@ public:
 	void renderGame();
 
 };
+
+int rand_int(int low, int high);

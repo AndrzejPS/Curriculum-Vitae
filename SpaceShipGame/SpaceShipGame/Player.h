@@ -7,7 +7,6 @@ class Player
 	//private variables
 	std::vector<std::unique_ptr<Missile>> bullets;
 
-
 	//Player's stats
 	int health;
 	float spaceship_speed;
