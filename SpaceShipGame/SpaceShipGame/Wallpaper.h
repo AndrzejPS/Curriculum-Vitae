@@ -17,7 +17,5 @@ class Wallpaper
 
 		//public methods
 		void drawWallpaper(sf::RenderTarget& target);
-
-
 };
 

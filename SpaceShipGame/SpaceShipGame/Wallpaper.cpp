@@ -35,3 +35,4 @@ void Wallpaper::drawWallpaper(sf::RenderTarget& target)
 	target.draw(*this->wallpaper_sprite);
 }
 
+

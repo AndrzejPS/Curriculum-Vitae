@@ -1,6 +1,7 @@
 #pragma once 
 #include <SFML/Graphics.hpp>
 #include "Wallpaper.h"
+#include "Player.h"
 
 class Engine
 {
@@ -13,19 +14,23 @@ class Engine
 	//wallpaper
 	Wallpaper* background;
 
+	//Player
+	Player* player;
+
 	//private functions
 	void initVariables();
 	void initBackground(const sf::RenderTarget& target);
+	void initPlayer(const sf::RenderTarget& target);
 	void checkEvents();
 
-	public:
-		//constructor & destructor
-		Engine();
-		~Engine();
+public:
+	//constructor & destructor
+	Engine();
+	~Engine();
 
-		//public functions
-		bool checkRunningCondition();
-		void updateGame();
-		void renderGame();
+	//public functions
+	bool checkRunningCondition();
+	void updateGame();
+	void renderGame();
 
 };

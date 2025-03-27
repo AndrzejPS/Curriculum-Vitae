@@ -16,6 +16,11 @@ void Engine::initBackground(const sf::RenderTarget& target)
 	this->background = new Wallpaper(target);
 }
 
+void Engine::initPlayer(const sf::RenderTarget& target)
+{
+	this->player = new Player(target);
+}
+
 void Engine::checkEvents()
 {
 	while (const std::optional event = this->game_window->pollEvent())
@@ -23,7 +28,7 @@ void Engine::checkEvents()
 		if (event->is<sf::Event::Closed>())
 		{
 			this->game_window->close();
-			
+
 		}
 	}
 }
@@ -33,12 +38,14 @@ Engine::Engine()
 {
 	this->initVariables();
 	this->initBackground(*this->game_window);
+	this->initPlayer(*this->game_window);
 }
 
 Engine::~Engine()
 {
 	delete this->game_window;
 	delete this->background;
+	delete this->player;
 }
 
 //public methods
@@ -50,6 +57,8 @@ bool Engine::checkRunningCondition()
 void Engine::updateGame()
 {
 	this->checkEvents();
+	this->player->moveSpaceShip(*this->game_window);
+	this->player->updateBullets(*this->game_window);
 }
 
 void Engine::renderGame()
@@ -61,6 +70,8 @@ void Engine::renderGame()
 
 	//draw
 	this->background->drawWallpaper(*this->game_window);
+	this->player->drawSpaceShip(*this->game_window);
+	this->player->drawBullets(*this->game_window);
 
 	//render
 	this->game_window->display();
