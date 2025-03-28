@@ -21,6 +21,12 @@ void Engine::initPlayer(const sf::RenderTarget& target)
 	this->player = new Player(target);
 }
 
+void Engine::initObstacle(const sf::RenderTarget& target)
+{
+	this->obstacles.emplace_back(std::make_unique<Obstacle>(target.getSize().x));
+
+}
+
 void Engine::checkEvents()
 {
 	while (const std::optional event = this->game_window->pollEvent())
@@ -31,6 +37,12 @@ void Engine::checkEvents()
 
 		}
 	}
+}
+
+void Engine::drawObstacles(const std::vector<std::unique_ptr<Obstacle>>& obstacles)
+{
+	for (const std::unique_ptr<Obstacle>& element : this->obstacles)
+		element->drawObstacle(*this->game_window);
 }
 
 //constructor & destructor
@@ -57,8 +69,16 @@ bool Engine::checkRunningCondition()
 void Engine::updateGame()
 {
 	this->checkEvents();
+	if(Obstacle::checkObstaclesLimit()) this->initObstacle(*this->game_window);
+
 	this->player->moveSpaceShip(*this->game_window);
 	this->player->updateBullets(*this->game_window);
+	
+	for (std::unique_ptr<Obstacle>& element : this->obstacles)
+	{
+		element->moveObstacle(*this->game_window);
+	}
+	
 }
 
 void Engine::renderGame()
@@ -70,9 +90,10 @@ void Engine::renderGame()
 
 	//draw
 	this->background->drawWallpaper(*this->game_window);
+	this->drawObstacles(this->obstacles);
 	this->player->drawSpaceShip(*this->game_window);
 	this->player->drawBullets(*this->game_window);
-
+	
 	//render
 	this->game_window->display();
 }

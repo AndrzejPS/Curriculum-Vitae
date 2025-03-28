@@ -3,6 +3,7 @@
 #include <random>
 #include "Wallpaper.h"
 #include "Player.h"
+#include "Obstacles.h"
 
 class Engine
 {
@@ -18,11 +19,16 @@ class Engine
 	//Player
 	Player* player;
 
+	//Obstacles
+	std::vector<std::unique_ptr<Obstacle>> obstacles;
+
 	//private functions
 	void initVariables();
 	void initBackground(const sf::RenderTarget& target);
 	void initPlayer(const sf::RenderTarget& target);
+	void initObstacle(const sf::RenderTarget& target);
 	void checkEvents();
+	void drawObstacles(const std::vector<std::unique_ptr<Obstacle>>& obstacles);
 
 public:
 	//constructor & destructor
@@ -33,6 +39,7 @@ public:
 	bool checkRunningCondition();
 	void updateGame();
 	void renderGame();
+	
 
 };
 
