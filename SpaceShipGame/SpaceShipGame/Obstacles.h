@@ -5,7 +5,7 @@ class Obstacle
 {
 	//private variables
 	float obstacle_speed, rotation_degree, starting_spot;
-	int obstacle_hp = 0, obstacle_id;
+	int obstacle_hp, obstacle_id;
 	static int obstacles_current_number, obstacles_max_number;
 
 	//obstacles' appearance
@@ -23,7 +23,11 @@ public:
 
 	//public methods
 	static bool checkObstaclesLimit();
+	int getID()const;
+	sf::FloatRect getObstacleGlobalBounds() const;
+	
 	void moveObstacle(const sf::RenderTarget& target);
 	void drawObstacle(sf::RenderTarget& target);
+	bool checkObstaclePosition(const sf::RenderTarget& target);
 };
 

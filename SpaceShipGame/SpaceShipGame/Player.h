@@ -30,4 +30,5 @@ public:
 	void drawBullets(sf::RenderTarget& target);
 	void moveSpaceShip(const sf::RenderTarget& target);
 	void updateBullets(const sf::RenderTarget& target);
+	bool checkCollision(const sf::FloatRect& object, const int& object_id);
 };

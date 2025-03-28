@@ -24,6 +24,16 @@ void Engine::initPlayer(const sf::RenderTarget& target)
 void Engine::initObstacle(const sf::RenderTarget& target)
 {
 	this->obstacles.emplace_back(std::make_unique<Obstacle>(target.getSize().x));
+	
+	//if the obstacle is spawned on another, it is removed instead
+	for (int i = obstacles.size() - 2; i >= 0; i--)
+	{
+		if (this->obstacles.back()->getObstacleGlobalBounds().findIntersection(this->obstacles[i]->getObstacleGlobalBounds()) != std::nullopt)
+		{
+			this->obstacles.pop_back();
+			break;
+		}
+	}
 
 }
 
@@ -74,9 +84,11 @@ void Engine::updateGame()
 	this->player->moveSpaceShip(*this->game_window);
 	this->player->updateBullets(*this->game_window);
 	
-	for (std::unique_ptr<Obstacle>& element : this->obstacles)
+	for (int i = obstacles.size()-1;i>=0;i--)
 	{
-		element->moveObstacle(*this->game_window);
+		obstacles[i]->moveObstacle(*this->game_window);
+		if (this->player->checkCollision(obstacles[i]->getObstacleGlobalBounds(), obstacles[i]->getID()) || !obstacles[i]->checkObstaclePosition(*this->game_window))
+			obstacles.erase(obstacles.begin() + i);
 	}
 	
 }

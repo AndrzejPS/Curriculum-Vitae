@@ -102,3 +102,20 @@ void Player::updateBullets(const sf::RenderTarget& target)
 		else bullets[i]->moveMissle(bullets[i]->getRotationDegree());
 	}
 }
+
+bool Player::checkCollision(const sf::FloatRect& object, const int& object_id)
+{
+	if (this->spaceship_sprite->getGlobalBounds().findIntersection(object) != std::nullopt)
+	{
+		switch (object_id)
+		{
+		case 0: this->health++; break;
+		case 1:
+		deafault: this->health--;
+		}
+
+		return true;
+	}
+
+	return false;
+}
