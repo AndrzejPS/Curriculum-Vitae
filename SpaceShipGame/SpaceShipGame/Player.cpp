@@ -1,13 +1,13 @@
 #include "Player.h"
 #include <iostream>
 
-
 //private methods
 void Player::initVariables()
 {
 	//player's stats
-	this->health = 3;
+	this->player_hp = 3;
 	this->spaceship_speed = 5.f;
+	this->score = 0;
 }
 
 //player's appearance
@@ -103,19 +103,37 @@ void Player::updateBullets(const sf::RenderTarget& target)
 	}
 }
 
-bool Player::checkCollision(const sf::FloatRect& object, const int& object_id)
+void Player::getHealth()
 {
-	if (this->spaceship_sprite->getGlobalBounds().findIntersection(object) != std::nullopt)
+	this->player_hp++;
+}
+
+void Player::takeDamage()
+{
+	this->player_hp--;
+}
+
+void Player::getPoint()
+{
+	this->score++;
+}
+
+bool Player::checkCollision(const sf::FloatRect& object)
+{
+	return this->spaceship_sprite->getGlobalBounds().findIntersection(object) != std::nullopt ? true : false;
+}
+
+bool Player::checkShot(const sf::FloatRect& object, const int& object_id)
+{
+	if (object_id == 0) return false; //no collision with the satelllite
+
+	for (int i = this->bullets.size()-1; i >= 0; i--)
 	{
-		switch (object_id)
+		if (this->bullets[i]->getMissileGlobalBounds().findIntersection(object) != std::nullopt)
 		{
-		case 0: this->health++; break;
-		case 1:
-		deafault: this->health--;
-		}
-
-		return true;
+			bullets.erase(bullets.begin() + i);
+			return true;
+		}		
 	}
-
 	return false;
 }

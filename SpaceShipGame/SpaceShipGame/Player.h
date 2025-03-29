@@ -8,7 +8,7 @@ class Player
 	std::vector<std::unique_ptr<Missile>> bullets;
 
 	//Player's stats
-	int health;
+	int player_hp, score;
 	float spaceship_speed;
 
 	//Player's appearance
@@ -30,5 +30,9 @@ public:
 	void drawBullets(sf::RenderTarget& target);
 	void moveSpaceShip(const sf::RenderTarget& target);
 	void updateBullets(const sf::RenderTarget& target);
-	bool checkCollision(const sf::FloatRect& object, const int& object_id);
+	void getHealth();
+	void takeDamage();
+	void getPoint();
+	bool checkCollision(const sf::FloatRect& object);
+	bool checkShot(const sf::FloatRect& object, const int& object_id);
 };

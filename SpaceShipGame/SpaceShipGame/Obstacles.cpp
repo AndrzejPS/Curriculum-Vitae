@@ -101,7 +101,17 @@ void Obstacle::drawObstacle(sf::RenderTarget& target)
 	target.draw(*this->obstacle_sprite);
 }
 
+void Obstacle::takeDamageByObstacle()
+{
+	this->obstacle_hp--;
+}
+
 bool Obstacle::checkObstaclePosition(const sf::RenderTarget& target)
 {
 	return (this->obstacle_sprite->getPosition().y - this->obstacle_sprite->getGlobalBounds().size.y / 2.f < target.getSize().y);
+}
+
+bool Obstacle::isObstacleDestroyed() const
+{
+	return this->obstacle_hp <= 0;
 }

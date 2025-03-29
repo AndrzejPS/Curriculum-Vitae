@@ -87,10 +87,32 @@ void Engine::updateGame()
 	for (int i = obstacles.size()-1;i>=0;i--)
 	{
 		obstacles[i]->moveObstacle(*this->game_window);
-		if (this->player->checkCollision(obstacles[i]->getObstacleGlobalBounds(), obstacles[i]->getID()) || !obstacles[i]->checkObstaclePosition(*this->game_window))
-			obstacles.erase(obstacles.begin() + i);
+
+		if (this->player->checkShot(obstacles[i]->getObstacleGlobalBounds(), obstacles[i]->getID()))
+		{
+			obstacles[i]->takeDamageByObstacle();
+			if (obstacles[i]->isObstacleDestroyed())
+			{
+				this->player->getPoint();
+				goto removeObstacle;
+			}
+		}
+
+		if (this->player->checkCollision(obstacles[i]->getObstacleGlobalBounds()))
+		{
+			switch (obstacles[i]->getID())
+			{
+				case 0: this->player->getHealth(); break;
+				case 1:
+				deafault: this->player->takeDamage();
+			}
+
+			goto removeObstacle;
+		}
+			
+		if(!obstacles[i]->checkObstaclePosition(*this->game_window))
+			removeObstacle: obstacles.erase(obstacles.begin() + i);
 	}
-	
 }
 
 void Engine::renderGame()

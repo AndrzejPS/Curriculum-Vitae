@@ -25,9 +25,11 @@ public:
 	static bool checkObstaclesLimit();
 	int getID()const;
 	sf::FloatRect getObstacleGlobalBounds() const;
-	
 	void moveObstacle(const sf::RenderTarget& target);
 	void drawObstacle(sf::RenderTarget& target);
+	void takeDamageByObstacle();
 	bool checkObstaclePosition(const sf::RenderTarget& target);
+	bool isObstacleDestroyed() const;
+
 };
 

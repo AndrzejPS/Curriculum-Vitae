@@ -41,20 +41,25 @@ Missile::~Missile()
 	delete this->missile_sprite;
 }
 
-std::pair<float, float> Missile::getMissilePosition()
+std::pair<float, float> Missile::getMissilePosition() const
 {
 	//pair(x, y);
 	return std::pair<float, float>(this->missile_sprite->getGlobalBounds().position.x, this->missile_sprite->getGlobalBounds().position.y);
 }
 
-std::pair<float, float> Missile::getMissileSize()
+std::pair<float, float> Missile::getMissileSize() const
 {
 	return std::pair<float, float>(this->missile_sprite->getGlobalBounds().size.x, this->missile_sprite->getGlobalBounds().size.y);
 }
 
-const float& Missile::getRotationDegree()
+float Missile::getRotationDegree() const
 {
 	return this->rotation_degree;
+}
+
+sf::FloatRect Missile::getMissileGlobalBounds() const
+{
+	return this->missile_sprite->getGlobalBounds();
 }
 
 void Missile::moveMissle(const float& degrees)

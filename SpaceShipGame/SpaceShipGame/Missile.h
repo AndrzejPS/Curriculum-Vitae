@@ -20,9 +20,10 @@ public:
 	~Missile();
 
 	//public methods
-	std::pair<float, float> getMissilePosition();
-	std::pair<float, float> getMissileSize();
-	const float& getRotationDegree();
+	std::pair<float, float> getMissilePosition() const;
+	std::pair<float, float> getMissileSize() const;
+	float getRotationDegree() const;
+	sf::FloatRect getMissileGlobalBounds() const;
 	void moveMissle(const float& degrees);
 	void drawMissile(sf::RenderTarget& target);
 };
