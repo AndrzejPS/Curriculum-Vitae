@@ -48,7 +48,7 @@ void Obstacle::initVariables(const int& window_size_x)
 			//private variables
 			this->obstacle_id = 1;
 			this->obstacle_hp = rand_int(3, 10);
-			this->rotation_degree = 60.f / obstacle_hp;
+			this->rotation_degree = 30.f / obstacle_hp * rand_int(-1,1);
 			this->obstacle_speed = 0.5f + 10.f / this->obstacle_hp;
 
 			//meteor sprite

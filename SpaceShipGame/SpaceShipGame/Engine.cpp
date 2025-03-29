@@ -106,7 +106,7 @@ void Engine::updateGame()
 				case 1:
 				deafault: this->player->takeDamage();
 			}
-
+			
 			goto removeObstacle;
 		}
 			
