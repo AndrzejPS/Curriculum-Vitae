@@ -8,6 +8,17 @@ void Player::initVariables()
 	this->player_hp = 3;
 	this->spaceship_speed = 5.f;
 	this->score = 0;
+
+	//font & text
+	if (!this->main_font.openFromFile("Fonts/SPACE.ttf"))
+	{
+		std::cout << "ERROR::PLAYER::INITVARIABLES:Couldn't load the font!";
+	}
+
+	this->game_current_stats = new sf::Text(this->main_font);
+	this->game_current_stats->setCharacterSize(15);
+	this->game_current_stats->setFillColor(sf::Color::Green);
+	this->game_current_stats->setString("NONE");
 }
 
 //player's appearance
@@ -40,6 +51,7 @@ Player::Player(const sf::RenderTarget& target)
 Player::~Player()
 {
 	delete this->spaceship_sprite;
+	delete this->game_current_stats;
 }
 
 //public methods
@@ -51,6 +63,11 @@ void Player::drawSpaceShip(sf::RenderTarget& target)
 void Player::drawBullets(sf::RenderTarget& target)
 {
 	for (const std::unique_ptr<Missile>& bullet : this->bullets) bullet->drawMissile(target);
+}
+
+void Player::drawGameCurrentStats(sf::RenderTarget& target)
+{
+	target.draw(*this->game_current_stats);
 }
 
 void Player::moveSpaceShip(const sf::RenderTarget& target)
@@ -103,6 +120,12 @@ void Player::updateBullets(const sf::RenderTarget& target)
 	}
 }
 
+void Player::updateGameCurrentStats()
+{
+	this->game_current_stats->setString("Score: " + std::to_string(this->score) +
+										"\nHealth: " + std::to_string(this->player_hp));
+}
+
 void Player::getHealth()
 {
 	this->player_hp++;
@@ -120,7 +143,7 @@ void Player::getPoint()
 
 bool Player::checkCollision(const sf::FloatRect& object)
 {
-	return this->spaceship_sprite->getGlobalBounds().findIntersection(object) != std::nullopt ? true : false;
+	return this->getSpaceShipGlobalBounds().findIntersection(object) != std::nullopt ? true : false;
 }
 
 bool Player::checkShot(const sf::FloatRect& object, const int& object_id)
@@ -136,4 +159,11 @@ bool Player::checkShot(const sf::FloatRect& object, const int& object_id)
 		}		
 	}
 	return false;
+}
+
+sf::FloatRect Player::getSpaceShipGlobalBounds()
+{
+	sf::FloatRect spaceship_bounds = this->spaceship_sprite->getGlobalBounds();
+	spaceship_bounds.size.x *= 0.65;
+	return spaceship_bounds;
 }

@@ -2,7 +2,7 @@
 #include "Engine.h"
 #include <iostream>
 
-int Obstacle::obstacles_current_number = 0, Obstacle::obstacles_max_number = 10;
+int Obstacle::obstacles_current_number = 0, Obstacle::obstacles_max_number = 5;
 std::vector<sf::Texture> Obstacle::obstacles_textures(2);
 
 //private methods
@@ -58,7 +58,7 @@ void Obstacle::initVariables(const int& window_size_x)
 
 	this->obstacle_sprite->setOrigin({ static_cast<float>(this->obstacles_textures[1].getSize().x) / 2.f, static_cast<float>(this->obstacles_textures[1].getSize().y) / 2.f });
 	this->obstacle_sprite->setPosition({ static_cast<float>(rand_int(0, window_size_x)) , 0.f });
-	this->obstacle_sprite->setScale({ 0.15f * (obstacle_hp / 2.f) , 0.15f * (obstacle_hp / 2.f) });
+	this->obstacle_sprite->setScale({ 0.12f * (obstacle_hp / 2.f) , 0.12f * (obstacle_hp / 2.f) });
 	
 }
 
@@ -87,7 +87,10 @@ int Obstacle::getID() const
 
 sf::FloatRect Obstacle::getObstacleGlobalBounds() const
 {
-	return this->obstacle_sprite->getGlobalBounds();
+	sf::FloatRect obstacle_bounds = this->obstacle_sprite->getGlobalBounds();
+	obstacle_bounds.size.x *= 0.75;
+	obstacle_bounds.size.y *= 0.75;
+	return obstacle_bounds;
 }
 
 void Obstacle::moveObstacle(const sf::RenderTarget& target)

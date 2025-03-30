@@ -16,6 +16,10 @@ class Player
 	sf::Sprite* spaceship_sprite;
 	float spaceship_sprite_half_x, spaceship_sprite_half_y;
 
+	//Text and Fonts
+	sf::Font main_font;
+	sf::Text* game_current_stats;
+
 	//private methods
 	void initVariables();
 	void initPlayersAppearance(const sf::RenderTarget& target);
@@ -28,11 +32,14 @@ public:
 	//public methods
 	void drawSpaceShip(sf::RenderTarget& target);
 	void drawBullets(sf::RenderTarget& target);
+	void drawGameCurrentStats(sf::RenderTarget& target);
 	void moveSpaceShip(const sf::RenderTarget& target);
 	void updateBullets(const sf::RenderTarget& target);
+	void updateGameCurrentStats();
 	void getHealth();
 	void takeDamage();
 	void getPoint();
 	bool checkCollision(const sf::FloatRect& object);
 	bool checkShot(const sf::FloatRect& object, const int& object_id);
+	sf::FloatRect getSpaceShipGlobalBounds();
 };

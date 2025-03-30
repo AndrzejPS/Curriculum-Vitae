@@ -113,6 +113,8 @@ void Engine::updateGame()
 		if(!obstacles[i]->checkObstaclePosition(*this->game_window))
 			removeObstacle: obstacles.erase(obstacles.begin() + i);
 	}
+
+	this->player->updateGameCurrentStats();
 }
 
 void Engine::renderGame()
@@ -127,7 +129,8 @@ void Engine::renderGame()
 	this->drawObstacles(this->obstacles);
 	this->player->drawSpaceShip(*this->game_window);
 	this->player->drawBullets(*this->game_window);
-	
+	this->player->drawGameCurrentStats(*this->game_window);
+
 	//render
 	this->game_window->display();
 }
