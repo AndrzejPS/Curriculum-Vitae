@@ -78,6 +78,8 @@ bool Engine::checkRunningCondition()
 
 void Engine::updateGame()
 {
+	if (!this->player->isPlayerAlive()) return;
+
 	this->checkEvents();
 	if(Obstacle::checkObstaclesLimit()) this->initObstacle(*this->game_window);
 
@@ -129,7 +131,14 @@ void Engine::renderGame()
 	this->drawObstacles(this->obstacles);
 	this->player->drawSpaceShip(*this->game_window);
 	this->player->drawBullets(*this->game_window);
-	this->player->drawGameCurrentStats(*this->game_window);
+
+	if (this->player->isPlayerAlive())
+		this->player->drawGameCurrentStats(*this->game_window);
+	else
+	{
+		this->player->drawEndGamePhrase(*this->game_window);
+	}
+		
 
 	//render
 	this->game_window->display();

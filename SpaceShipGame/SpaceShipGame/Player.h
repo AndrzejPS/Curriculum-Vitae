@@ -33,6 +33,7 @@ public:
 	void drawSpaceShip(sf::RenderTarget& target);
 	void drawBullets(sf::RenderTarget& target);
 	void drawGameCurrentStats(sf::RenderTarget& target);
+	void drawEndGamePhrase(sf::RenderTarget& target);
 	void moveSpaceShip(const sf::RenderTarget& target);
 	void updateBullets(const sf::RenderTarget& target);
 	void updateGameCurrentStats();
@@ -41,5 +42,6 @@ public:
 	void getPoint();
 	bool checkCollision(const sf::FloatRect& object);
 	bool checkShot(const sf::FloatRect& object, const int& object_id);
+	bool isPlayerAlive();
 	sf::FloatRect getSpaceShipGlobalBounds();
 };

@@ -16,8 +16,10 @@ void Player::initVariables()
 	}
 
 	this->game_current_stats = new sf::Text(this->main_font);
-	this->game_current_stats->setCharacterSize(15);
+	this->game_current_stats->setCharacterSize(25);
 	this->game_current_stats->setFillColor(sf::Color::Green);
+	this->game_current_stats->setOutlineThickness(2);
+	this->game_current_stats->setPosition({ 20.f,10.f });
 	this->game_current_stats->setString("NONE");
 }
 
@@ -67,6 +69,19 @@ void Player::drawBullets(sf::RenderTarget& target)
 
 void Player::drawGameCurrentStats(sf::RenderTarget& target)
 {
+	target.draw(*this->game_current_stats);
+}
+
+void Player::drawEndGamePhrase(sf::RenderTarget& target)
+{
+	//modify text patameters
+	this->game_current_stats->setCharacterSize(50);
+	this->game_current_stats->setFillColor(sf::Color::Red);
+	this->game_current_stats->setOrigin({ this->game_current_stats->getGlobalBounds().size.x / 2.f, this->game_current_stats->getGlobalBounds().size.y / 2.f });
+	this->game_current_stats->setPosition({ target.getSize().x / 2.f, target.getSize().y/2.f });
+
+	//draw the final score
+	this->game_current_stats->setString("You've lost!\nFinal score: " + std::to_string(this->score));
 	target.draw(*this->game_current_stats);
 }
 
@@ -159,6 +174,11 @@ bool Player::checkShot(const sf::FloatRect& object, const int& object_id)
 		}		
 	}
 	return false;
+}
+
+bool Player::isPlayerAlive()
+{
+	return this->player_hp > 0;
 }
 
 sf::FloatRect Player::getSpaceShipGlobalBounds()

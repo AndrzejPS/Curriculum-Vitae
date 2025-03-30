@@ -2,7 +2,7 @@
 #include "Engine.h"
 #include <iostream>
 
-int Obstacle::obstacles_current_number = 0, Obstacle::obstacles_max_number = 5;
+int Obstacle::obstacles_current_number = 0, Obstacle::obstacles_max_number = 8;
 std::vector<sf::Texture> Obstacle::obstacles_textures(2);
 
 //private methods
