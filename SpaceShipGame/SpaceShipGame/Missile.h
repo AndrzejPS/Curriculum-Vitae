@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 
 class Missile
 {
@@ -9,6 +10,10 @@ class Missile
 	//Missile's appearance
 	static sf::Texture missile_texture;
 	sf::Sprite* missile_sprite;
+
+	//Missile's sound
+	sf::SoundBuffer launch_sound_buffer;
+	sf::Sound* launch_sound;
 
 	//private methods
 	void initVariables(const float& degrees);

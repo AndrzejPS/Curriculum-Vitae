@@ -8,6 +8,7 @@ void Player::initVariables()
 	this->player_hp = 3;
 	this->spaceship_speed = 5.f;
 	this->score = 0;
+	this->weapon_lvl = 1;
 
 	//font & text
 	if (!this->main_font.openFromFile("Fonts/SPACE.ttf"))
@@ -21,6 +22,13 @@ void Player::initVariables()
 	this->game_current_stats->setOutlineThickness(2);
 	this->game_current_stats->setPosition({ 20.f,10.f });
 	this->game_current_stats->setString("NONE");
+
+	//sounds
+	spaceship_sound_buffers.emplace_back("Sounds/damage_spaceship.mp3"); // OK w SFML 3.0
+	spaceship_sound_buffers.emplace_back("Sounds/explosion.mp3"); // OK w SFML 3.0
+
+	this->spaceship_sounds.emplace_back(std::make_unique<sf::Sound>(this->spaceship_sound_buffers.at(0))); // [0]
+	this->spaceship_sounds.emplace_back(std::make_unique<sf::Sound>(this->spaceship_sound_buffers.at(1))); // [1]
 }
 
 //player's appearance
@@ -115,9 +123,13 @@ void Player::moveSpaceShip(const sf::RenderTarget& target)
 	{
 		if (fire_delay == 0)
 		{
-			this->bullets.emplace_back(std::make_unique<Missile>(this->spaceship_sprite->getPosition().x, this->spaceship_sprite->getPosition().y));
-			this->bullets.emplace_back(std::make_unique<Missile>(this->spaceship_sprite->getPosition().x, this->spaceship_sprite->getPosition().y, -45.0));
-			this->bullets.emplace_back(std::make_unique<Missile>(this->spaceship_sprite->getPosition().x, this->spaceship_sprite->getPosition().y,45.0));
+			switch (this->weapon_lvl)
+			{
+			case 3: this->bullets.emplace_back(std::make_unique<Missile>(this->spaceship_sprite->getPosition().x, this->spaceship_sprite->getPosition().y, -45.0));
+			case 2: this->bullets.emplace_back(std::make_unique<Missile>(this->spaceship_sprite->getPosition().x, this->spaceship_sprite->getPosition().y, 45.0));
+			case 1: this->bullets.emplace_back(std::make_unique<Missile>(this->spaceship_sprite->getPosition().x, this->spaceship_sprite->getPosition().y));
+			}
+			
 			fire_delay = 20;
 		}
 		else fire_delay--;
@@ -144,11 +156,25 @@ void Player::updateGameCurrentStats()
 void Player::getHealth()
 {
 	this->player_hp++;
+	
+	if (this->weapon_lvl < 3) this->weapon_lvl++;
 }
 
 void Player::takeDamage()
 {
+	if (this->player_hp > 1) this->spaceship_sounds.at(0)->play();
+
 	this->player_hp--;
+	this->weapon_lvl = 1;
+}
+
+void Player::destroySpaceshipSprite()
+{
+	if (this->spaceship_sprite == nullptr) return;
+
+	this->spaceship_sounds[1]->play();
+	delete this->spaceship_sprite;
+	this->spaceship_sprite = nullptr;
 }
 
 void Player::getPoint()
@@ -184,6 +210,6 @@ bool Player::isPlayerAlive()
 sf::FloatRect Player::getSpaceShipGlobalBounds()
 {
 	sf::FloatRect spaceship_bounds = this->spaceship_sprite->getGlobalBounds();
-	spaceship_bounds.size.x *= 0.65;
+	spaceship_bounds.size.x *= 0.65f;
 	return spaceship_bounds;
 }

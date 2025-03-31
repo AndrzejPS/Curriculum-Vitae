@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 
 class Obstacle
 {
@@ -11,6 +12,10 @@ class Obstacle
 	//obstacles' appearance
 	static std::vector<sf::Texture> obstacles_textures;
 	sf::Sprite* obstacle_sprite;
+
+	//obstacle's sound
+	static sf::SoundBuffer obstacle_sound_buffer;
+	static sf::Sound* obstacle_sound;
 
 	//private methods
 	void initObstaclesTextures(std::vector<sf::Texture>& container);
@@ -28,6 +33,7 @@ public:
 	void moveObstacle(const sf::RenderTarget& target);
 	void drawObstacle(sf::RenderTarget& target);
 	void takeDamageByObstacle();
+	void playObstacleCrushSound();
 	bool checkObstaclePosition(const sf::RenderTarget& target);
 	bool isObstacleDestroyed() const;
 

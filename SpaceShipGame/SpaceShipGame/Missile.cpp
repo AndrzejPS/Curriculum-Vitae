@@ -4,8 +4,18 @@
 
 void Missile::initVariables(const float& degrees)
 {
-	this->missile_speed = 6.f;
+	//Missile's stats
+	this->missile_speed = 7.f;
 	this->rotation_degree = degrees;
+
+	//Missile's sound
+	if (!this->launch_sound_buffer.loadFromFile("Sounds/launch_missile.mp3"))
+	{
+		std::cerr << "ERROR::MISSILE::INITVARIABLES::Couldn't load the lauch missile sound!";
+	}
+
+	this->launch_sound = new sf::Sound (this->launch_sound_buffer);
+
 }
 
 sf::Texture Missile::missile_texture;
@@ -34,11 +44,13 @@ Missile::Missile(const float& spaceship_origin_x, const float& spaceship_origin_
 {
 	this->initVariables(degrees);
 	this->initMissileAppearance(spaceship_origin_x, spaceship_origin_y);
+	this->launch_sound->play();
 }
 
 Missile::~Missile()
 {
 	delete this->missile_sprite;
+	delete this->launch_sound;
 }
 
 std::pair<float, float> Missile::getMissilePosition() const

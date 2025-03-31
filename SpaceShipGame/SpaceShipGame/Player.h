@@ -8,13 +8,18 @@ class Player
 	std::vector<std::unique_ptr<Missile>> bullets;
 
 	//Player's stats
-	int player_hp, score;
+	int player_hp, score, weapon_lvl;
 	float spaceship_speed;
 
 	//Player's appearance
 	sf::Texture spaceship_texture;
 	sf::Sprite* spaceship_sprite;
 	float spaceship_sprite_half_x, spaceship_sprite_half_y;
+
+	//Player's sounds
+	std::vector<sf::SoundBuffer> spaceship_sound_buffers;
+	std::vector<std::unique_ptr<sf::Sound>> spaceship_sounds;
+
 
 	//Text and Fonts
 	sf::Font main_font;
@@ -39,6 +44,7 @@ public:
 	void updateGameCurrentStats();
 	void getHealth();
 	void takeDamage();
+	void destroySpaceshipSprite();
 	void getPoint();
 	bool checkCollision(const sf::FloatRect& object);
 	bool checkShot(const sf::FloatRect& object, const int& object_id);

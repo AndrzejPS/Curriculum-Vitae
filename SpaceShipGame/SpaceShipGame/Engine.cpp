@@ -8,7 +8,11 @@ void Engine::initVariables()
 	this->window_size = sf::VideoMode({ 1280,720 });
 	this->game_window = new sf::RenderWindow(window_size, "SpaceShipGame", sf::Style::Default, sf::State::Windowed);
 	this->game_window->setFramerateLimit(60);
-	//
+	
+	//music
+	this->background_music = new sf::Music("Sounds/space_theme.wav");
+	this->background_music->setLoopPoints({ sf::milliseconds(0),sf::seconds(10) });
+	this->background_music->setVolume(50);
 }
 
 void Engine::initBackground(const sf::RenderTarget& target)
@@ -61,6 +65,7 @@ Engine::Engine()
 	this->initVariables();
 	this->initBackground(*this->game_window);
 	this->initPlayer(*this->game_window);
+	this->background_music->play();
 }
 
 Engine::~Engine()
@@ -68,6 +73,7 @@ Engine::~Engine()
 	delete this->game_window;
 	delete this->background;
 	delete this->player;
+	delete this->background_music;
 }
 
 //public methods
@@ -81,7 +87,11 @@ void Engine::updateGame()
 	if (!this->player->isPlayerAlive()) return;
 
 	this->checkEvents();
-	if(Obstacle::checkObstaclesLimit()) this->initObstacle(*this->game_window);
+	if (Obstacle::checkObstaclesLimit())
+	{
+		if(rand_int(0,1) == 1)
+		this->initObstacle(*this->game_window);
+	}
 
 	this->player->moveSpaceShip(*this->game_window);
 	this->player->updateBullets(*this->game_window);
@@ -96,6 +106,7 @@ void Engine::updateGame()
 			if (obstacles[i]->isObstacleDestroyed())
 			{
 				this->player->getPoint();
+				this->obstacles[i]->playObstacleCrushSound();
 				goto removeObstacle;
 			}
 		}
@@ -129,13 +140,14 @@ void Engine::renderGame()
 	//draw
 	this->background->drawWallpaper(*this->game_window);
 	this->drawObstacles(this->obstacles);
-	this->player->drawSpaceShip(*this->game_window);
+		if (this->player->isPlayerAlive()) this->player->drawSpaceShip(*this->game_window);
 	this->player->drawBullets(*this->game_window);
 
 	if (this->player->isPlayerAlive())
 		this->player->drawGameCurrentStats(*this->game_window);
 	else
 	{
+		this->player->destroySpaceshipSprite();
 		this->player->drawEndGamePhrase(*this->game_window);
 	}
 		

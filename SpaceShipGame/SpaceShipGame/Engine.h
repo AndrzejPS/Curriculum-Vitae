@@ -1,5 +1,6 @@
 #pragma once 
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include <random>
 #include "Wallpaper.h"
 #include "Player.h"
@@ -16,6 +17,9 @@ class Engine
 	//wallpaper
 	Wallpaper* background;
 
+	//music
+	sf::Music* background_music;
+
 	//Player
 	Player* player;
 
@@ -29,6 +33,7 @@ class Engine
 	void initObstacle(const sf::RenderTarget& target);
 	void checkEvents();
 	void drawObstacles(const std::vector<std::unique_ptr<Obstacle>>& obstacles);
+	
 
 public:
 	//constructor & destructor

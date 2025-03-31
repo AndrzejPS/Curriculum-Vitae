@@ -5,6 +5,9 @@
 int Obstacle::obstacles_current_number = 0, Obstacle::obstacles_max_number = 8;
 std::vector<sf::Texture> Obstacle::obstacles_textures(2);
 
+sf::SoundBuffer Obstacle::obstacle_sound_buffer;
+sf::Sound* Obstacle::obstacle_sound = nullptr;
+
 //private methods
 void Obstacle::initObstaclesTextures(std::vector<sf::Texture>& container)
 {
@@ -26,7 +29,7 @@ void Obstacle::initVariables(const int& window_size_x)
 	if (this->obstacles_textures[0].getSize().x == 0)
 		this->initObstaclesTextures(obstacles_textures);
 
-	switch (rand_int(1, 10))
+	switch (rand_int(1, 20))
 	{
 		//satellite
 		case 1:
@@ -47,7 +50,7 @@ void Obstacle::initVariables(const int& window_size_x)
 		{
 			//private variables
 			this->obstacle_id = 1;
-			this->obstacle_hp = rand_int(3, 10);
+			this->obstacle_hp = rand_int(3, 8);
 			this->rotation_degree = 30.f / obstacle_hp * rand_int(-1,1);
 			this->obstacle_speed = 0.5f + 10.f / this->obstacle_hp;
 
@@ -60,6 +63,19 @@ void Obstacle::initVariables(const int& window_size_x)
 	this->obstacle_sprite->setPosition({ static_cast<float>(rand_int(0, window_size_x)) , 0.f });
 	this->obstacle_sprite->setScale({ 0.12f * (obstacle_hp / 2.f) , 0.12f * (obstacle_hp / 2.f) });
 	
+	//obstacle's sound
+	if (obstacle_sound_buffer.getDuration().asSeconds() == 0)
+	{
+		if (!obstacle_sound_buffer.loadFromFile("Sounds/meteor_destroyed.mp3"))
+		{
+			std::cerr << "\nERROR::OBSTACLES::INITVARIABLES::COuldn't load the obstacle sound!\n";
+		}
+	}
+
+	if (obstacle_sound == nullptr)
+	{
+		obstacle_sound = new sf::Sound(obstacle_sound_buffer);
+	}
 }
 
 //constructor & destructor
@@ -107,6 +123,11 @@ void Obstacle::drawObstacle(sf::RenderTarget& target)
 void Obstacle::takeDamageByObstacle()
 {
 	this->obstacle_hp--;
+}
+
+void Obstacle::playObstacleCrushSound()
+{
+	this->obstacle_sound->play();
 }
 
 bool Obstacle::checkObstaclePosition(const sf::RenderTarget& target)

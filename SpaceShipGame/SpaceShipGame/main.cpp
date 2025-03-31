@@ -8,8 +8,6 @@ int main()
 
 	while (game.checkRunningCondition())
 	{
-
 		game.renderGame();
-
 	}
 }
