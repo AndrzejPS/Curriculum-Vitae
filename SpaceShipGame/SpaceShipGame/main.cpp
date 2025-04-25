@@ -1,13 +1,12 @@
-﻿#include "Engine.h"
-#include <iostream>
-#include <SFML/Graphics.hpp>
+#include "Engine.h"
 
 int main()
 {
-	Engine game;
+	Engine silnik(12,12);
 
-	while (game.checkRunningCondition())
+	while (silnik.isGameRunning())
 	{
-		game.renderGame();
+
+		silnik.renderGame();
 	}
 }

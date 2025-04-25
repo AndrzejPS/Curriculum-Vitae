@@ -1,51 +1,35 @@
-#pragma once 
+#pragma once
+#include "Rectangle.h"
 #include <SFML/Graphics.hpp>
-#include <SFML/Audio.hpp>
-#include <random>
-#include "Wallpaper.h"
-#include "Player.h"
-#include "Obstacles.h"
 
 class Engine
 {
-	//private variables
+	std::vector<std::unique_ptr<Rectangle>> rects;
+	float rect_size_x, rect_size_y;
+	int columns_num, rows_num;
 
-	//window
-	sf::VideoMode window_size;
+	sf::VideoMode* video_mode_ptr;
 	sf::RenderWindow* game_window;
 
-	//wallpaper
-	Wallpaper* background;
-
-	//music
-	sf::Music* background_music;
-
-	//Player
-	Player* player;
-
-	//Obstacles
-	std::vector<std::unique_ptr<Obstacle>> obstacles;
-
-	//private functions
-	void initVariables();
-	void initBackground(const sf::RenderTarget& target);
-	void initPlayer(const sf::RenderTarget& target);
-	void initObstacle(const sf::RenderTarget& target);
-	void checkEvents();
-	void drawObstacles(const std::vector<std::unique_ptr<Obstacle>>& obstacles);
-	
+	void initGameWindow();
+	void initVariables(const float& rect_size_x, const float& rect_size_y);
 
 public:
-	//constructor & destructor
-	Engine();
+	Engine(const int& columns_num=10, const int& rows_num=10) : columns_num(columns_num),rows_num(rows_num)
+	{
+		this->initGameWindow();
+		this->initVariables(this->game_window->getSize().x/this->columns_num, this->game_window->getSize().y/this->rows_num);
+		this->makeMap();
+	}
+
 	~Engine();
 
-	//public functions
-	bool checkRunningCondition();
-	void updateGame();
-	void renderGame();
+	bool isGameRunning();
+	void makeMap();
 	
+	void updateGame();
 
+	void renderMap();
+	void renderGame();
 };
 
-int rand_int(int low, int high);
