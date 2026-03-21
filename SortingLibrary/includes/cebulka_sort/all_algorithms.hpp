@@ -5,3 +5,5 @@
 #include "BubbleSort.hpp"
 #include "GnomeSort.hpp"
 #include "CocktailSort.hpp"
+#include "SelectionSort.hpp"
+#include "InsertionSort.hpp"

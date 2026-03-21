@@ -1,7 +1,7 @@
 #ifndef SELECTION_SORT_HPP
 #define SELECTION_SORT_HPP
 
-#include <cebulka_sort/library_details/Predicators.hpp>
+#include "library_details/Predicators.hpp"
 #include <algorithm>
 #include <iterator>
 
@@ -29,7 +29,7 @@ namespace ceb
 			}
 				
 
-			if(*condition_it != *curr_it)
+			if(condition_it != curr_it)
 				std::iter_swap(curr_it, condition_it);
 
 			++curr_it;

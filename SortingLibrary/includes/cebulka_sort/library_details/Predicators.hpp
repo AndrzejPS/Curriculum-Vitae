@@ -38,6 +38,9 @@ namespace ceb::details
 	template<typename Container_it>
 	Container_it get_previous_it(Container_it begin_it, Container_it curr_it)
 	{
+		if (begin_it == curr_it)
+			return begin_it;
+
 		if constexpr (is_it_bidirectional<Container_it>())
 		{
 			--curr_it;

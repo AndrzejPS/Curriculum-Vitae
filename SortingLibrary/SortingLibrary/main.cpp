@@ -5,8 +5,7 @@
 #include <forward_list>
 #include <chrono>
 
-#include <cebulka_sort/all_algorithms.hpp>
-#include "SelectionSort.hpp"
+#include <cebulka_sort/InsertionSort.hpp>
 
 int main()
 {
@@ -16,22 +15,22 @@ int main()
 	std::forward_list<long> v4{ 4, 17, 29, 6, 11, 38, 22, 9, 31, 14, 27, 2, 35, 19, 8, 41, 24, 13, 30, 5 };
 
 	auto start1 = std::chrono::high_resolution_clock::now();
-	ceb::selection_sort(v1.begin(), v1.end());
+	ceb::insertion_sort(v1.begin(), v1.end());
 	auto end1 = std::chrono::high_resolution_clock::now();
 	auto duration1 = std::chrono::duration_cast<std::chrono::nanoseconds>(end1 - start1);
 
 	auto start2 = std::chrono::high_resolution_clock::now();
-	ceb::selection_sort(v2.begin(), v2.end(), ceb::decreasingly);
+	ceb::insertion_sort(v2.begin(), v2.end(), ceb::decreasingly);
 	auto end2 = std::chrono::high_resolution_clock::now();
 	auto duration2 = std::chrono::duration_cast<std::chrono::nanoseconds>(end2 - start2);
 
 	auto start3 = std::chrono::high_resolution_clock::now();
-	ceb::selection_sort(v3.begin(), v3.end());
+	ceb::insertion_sort(v3.begin(), v3.end());
 	auto end3 = std::chrono::high_resolution_clock::now();
 	auto duration3 = std::chrono::duration_cast<std::chrono::nanoseconds>(end3 - start3);
 
 	auto start4 = std::chrono::high_resolution_clock::now();
-	ceb::selection_sort(v4.begin(), v4.end());
+	ceb::insertion_sort(v4.begin(), v4.end(), ceb::decreasingly);
 	auto end4 = std::chrono::high_resolution_clock::now();
 	auto duration4 = std::chrono::duration_cast<std::chrono::nanoseconds>(end4 - start4);
 	
